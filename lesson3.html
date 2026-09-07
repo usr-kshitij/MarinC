@@ -1,0 +1,2681 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Lesson 3 — Variables & Data Types | CraftC</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           LESSON 3
+        ===================================================== */
+
+        .lesson-page {
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .lesson-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 30px;
+            margin-bottom: 35px;
+        }
+
+        .lesson-breadcrumb {
+            color: #687286;
+            font-size: 11px;
+            margin-bottom: 10px;
+        }
+
+        .lesson-breadcrumb a {
+            color: #9b8acb;
+        }
+
+        .lesson-header h1 {
+            font-size: clamp(32px, 5vw, 50px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        .lesson-header h1 span {
+            color: #a78bfa;
+        }
+
+        .lesson-subtitle {
+            max-width: 700px;
+            margin-top: 12px;
+            color: #7f899b;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .lesson-number-badge {
+            flex-shrink: 0;
+            padding: 8px 12px;
+            border: 1px solid #292f3e;
+            border-radius: 8px;
+            background: #111722;
+            color: #a78bfa;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
+
+        .lesson-progress {
+            margin-bottom: 35px;
+        }
+
+        .lesson-progress-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #667184;
+            font-size: 10px;
+        }
+
+        .lesson-progress-top strong {
+            color: #a78bfa;
+        }
+
+        .lesson-progress-track {
+            height: 5px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #1d2532;
+        }
+
+        .lesson-progress-fill {
+            width: 12%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(
+                90deg,
+                #7c3aed,
+                #a78bfa
+            );
+            transition: width .4s ease;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .lesson-hero {
+            position: relative;
+            min-height: 390px;
+            display: grid;
+            grid-template-columns: 1fr .9fr;
+            align-items: center;
+            gap: 45px;
+            padding: 40px;
+            overflow: hidden;
+            border: 1px solid #242d3c;
+            border-radius: 22px;
+            background:
+                radial-gradient(
+                    circle at 80% 45%,
+                    rgba(124,58,237,.13),
+                    transparent 35%
+                ),
+                #0e131d;
+            margin-bottom: 60px;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: .35;
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.025) 1px,
+                    transparent 1px
+                );
+            background-size: 35px 35px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-label {
+            color: #8f7bbf;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.8px;
+        }
+
+        .hero-content h2 {
+            margin-top: 10px;
+            font-size: 32px;
+            line-height: 1.15;
+            letter-spacing: -1px;
+        }
+
+        .hero-content h2 span {
+            color: #a78bfa;
+        }
+
+        .hero-content p {
+            margin-top: 15px;
+            color: #7c8799;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+
+        /* =====================================================
+           ANIME GUIDE
+        ===================================================== */
+
+        .anime-stage {
+            position: relative;
+            min-height: 290px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .anime-character {
+            width: 210px;
+            height: 265px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px dashed #394354;
+            border-radius: 105px 105px 28px 28px;
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(139,92,246,.12),
+                    rgba(139,92,246,.02)
+                );
+            animation:
+                floatCharacter
+                3.5s
+                ease-in-out
+                infinite;
+        }
+
+        @keyframes floatCharacter {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+
+        }
+
+        .anime-face {
+            color: #c4b5fd;
+            font-size: 70px;
+            line-height: 1;
+        }
+
+        .anime-label {
+            margin-top: 20px;
+            color: #667184;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .anime-image {
+            max-width: 250px;
+            max-height: 320px;
+            object-fit: contain;
+            filter:
+                drop-shadow(
+                    0 25px 30px
+                    rgba(0,0,0,.35)
+                );
+            animation:
+                floatCharacter
+                3.5s
+                ease-in-out
+                infinite;
+        }
+
+        .speech {
+            position: absolute;
+            top: 0;
+            right: -5px;
+            max-width: 235px;
+            padding: 14px 16px;
+            border: 1px solid #30394a;
+            border-radius: 13px;
+            background: #151b27;
+            color: #bac2cf;
+            font-size: 11px;
+            line-height: 1.55;
+            box-shadow:
+                0 20px 45px
+                rgba(0,0,0,.25);
+        }
+
+
+        /* =====================================================
+           SECTIONS
+        ===================================================== */
+
+        .lesson-section {
+            margin-bottom: 65px;
+        }
+
+        .section-number {
+            color: #7f6ea9;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 10px;
+        }
+
+        .section-title {
+            margin-top: 7px;
+            font-size: 26px;
+            letter-spacing: -.8px;
+        }
+
+        .section-description {
+            max-width: 700px;
+            margin-top: 6px;
+            color: #707b8d;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           VARIABLE VISUAL
+        ===================================================== */
+
+        .variable-lab {
+            display: grid;
+            grid-template-columns: .8fr 1.2fr;
+            gap: 15px;
+            margin-top: 24px;
+        }
+
+        .variable-code {
+            overflow: hidden;
+            border: 1px solid #252e3e;
+            border-radius: 15px;
+            background: #0b1018;
+        }
+
+        .window-top {
+            height: 38px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0 14px;
+            border-bottom: 1px solid #202838;
+            background: #101620;
+        }
+
+        .window-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #414b5d;
+        }
+
+        .window-title {
+            margin-left: 7px;
+            color: #606b7d;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 9px;
+        }
+
+        .code-content {
+            padding: 22px;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+            line-height: 2.3;
+        }
+
+        .code-keyword {
+            color: #c084fc;
+        }
+
+        .code-variable {
+            color: #60a5fa;
+        }
+
+        .code-number {
+            color: #fbbf24;
+        }
+
+        .code-string {
+            color: #86efac;
+        }
+
+
+        /* =====================================================
+           MEMORY
+        ===================================================== */
+
+        .memory-panel {
+            padding: 23px;
+            border: 1px solid #252e3e;
+            border-radius: 15px;
+            background: #0f141e;
+        }
+
+        .memory-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .memory-title {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .memory-state {
+            color: #687386;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 9px;
+        }
+
+        .memory-box {
+            position: relative;
+            margin-top: 20px;
+            min-height: 130px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px dashed #394354;
+            border-radius: 13px;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255,255,255,.015),
+                    rgba(255,255,255,.015) 1px,
+                    transparent 1px,
+                    transparent 18px
+                );
+        }
+
+        .memory-address {
+            position: absolute;
+            top: 10px;
+            left: 12px;
+            color: #465064;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 8px;
+        }
+
+        .memory-name {
+            color: #8b7ab5;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 10px;
+        }
+
+        .memory-value {
+            margin-top: 5px;
+            color: #fbbf24;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 31px;
+            font-weight: 600;
+            transition:
+                transform .2s ease;
+        }
+
+        .memory-type {
+            margin-top: 5px;
+            color: #687386;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 9px;
+        }
+
+        .memory-controls {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .memory-button {
+            flex: 1;
+            padding: 9px;
+            border: 1px solid #293243;
+            border-radius: 8px;
+            background: #111722;
+            color: #9da7b7;
+            font-size: 10px;
+            cursor: pointer;
+            transition: .2s ease;
+        }
+
+        .memory-button:hover {
+            border-color: #62528c;
+            color: #c4b5fd;
+        }
+
+
+        /* =====================================================
+           DATA TYPES
+        ===================================================== */
+
+        .types-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .type-card {
+            padding: 20px;
+            border: 1px solid #222b3a;
+            border-radius: 14px;
+            background: #0f141e;
+            cursor: pointer;
+            transition:
+                transform .2s ease,
+                border-color .2s ease,
+                background .2s ease;
+        }
+
+        .type-card:hover {
+            transform: translateY(-3px);
+            border-color: #3a4558;
+        }
+
+        .type-card.active {
+            border-color: #7c5ab5;
+            background: rgba(124,58,237,.07);
+        }
+
+        .type-symbol {
+            color: #c4b5fd;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .type-card h3 {
+            margin-top: 12px;
+            font-size: 13px;
+        }
+
+        .type-card p {
+            margin-top: 5px;
+            color: #6f7a8c;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .type-example {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 5px 7px;
+            border-radius: 5px;
+            background: #151c28;
+            color: #8f9aab;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 9px;
+        }
+
+
+        /* =====================================================
+           DECLARATION ANIMATION
+        ===================================================== */
+
+        .animation-card {
+            position: relative;
+            overflow: hidden;
+            margin-top: 24px;
+            padding: 28px;
+            border: 1px solid #252e3e;
+            border-radius: 17px;
+            background: #0e131d;
+        }
+
+        .animation-title {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .animation-subtitle {
+            margin-top: 5px;
+            color: #707b8d;
+            font-size: 10px;
+        }
+
+        .animation-area {
+            position: relative;
+            min-height: 220px;
+            margin-top: 25px;
+        }
+
+        .type-block,
+        .name-block,
+        .value-block {
+            position: absolute;
+            top: 70px;
+            padding: 13px 17px;
+            border: 1px solid #30394a;
+            border-radius: 9px;
+            background: #151b27;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .type-block {
+            left: 5%;
+            color: #c084fc;
+        }
+
+        .name-block {
+            left: 42%;
+            color: #60a5fa;
+        }
+
+        .value-block {
+            right: 5%;
+            color: #fbbf24;
+        }
+
+        .type-block.show,
+        .name-block.show,
+        .value-block.show {
+            animation:
+                blockAppear
+                .45s
+                ease
+                forwards;
+        }
+
+        @keyframes blockAppear {
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .connection {
+            position: absolute;
+            top: 90px;
+            width: 28%;
+            height: 1px;
+            background: #353f51;
+            opacity: 0;
+        }
+
+        .connection.one {
+            left: 18%;
+        }
+
+        .connection.two {
+            right: 18%;
+        }
+
+        .connection.show {
+            animation:
+                connectionAppear
+                .35s
+                ease
+                forwards;
+        }
+
+        @keyframes connectionAppear {
+
+            to {
+                opacity: 1;
+            }
+
+        }
+
+        .animation-output {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #687386;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 10px;
+        }
+
+        .animate-button {
+            margin-top: 5px;
+            padding: 10px 15px;
+            border: 0;
+            border-radius: 8px;
+            background: #7c3aed;
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           ASSIGNMENT
+        ===================================================== */
+
+        .assignment {
+            padding: 25px;
+            border: 1px solid #252e3e;
+            border-radius: 17px;
+            background: #0f141e;
+        }
+
+        .assignment h3 {
+            font-size: 15px;
+        }
+
+        .assignment p {
+            margin-top: 6px;
+            color: #707b8d;
+            font-size: 10px;
+        }
+
+        .assignment-input-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .assignment-input {
+            flex: 1;
+            min-width: 0;
+            padding: 12px;
+            border: 1px solid #293243;
+            border-radius: 8px;
+            outline: none;
+            background: #111722;
+            color: #d3d8e0;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+        }
+
+        .assignment-input:focus {
+            border-color: #665399;
+        }
+
+        .check-button {
+            padding: 0 16px;
+            border: 0;
+            border-radius: 8px;
+            background: #7c3aed;
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .assignment-result {
+            min-height: 40px;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #111722;
+            color: #707b8d;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 10px;
+        }
+
+        .assignment-result.success {
+            color: #86efac;
+            background: rgba(74,222,128,.05);
+        }
+
+        .assignment-result.error {
+            color: #fca5a5;
+            background: rgba(248,113,113,.05);
+        }
+
+
+        /* =====================================================
+           QUIZ
+        ===================================================== */
+
+        .quiz-card {
+            padding: 28px;
+            border: 1px solid #252e3e;
+            border-radius: 18px;
+            background:
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(124,58,237,.08),
+                    transparent 30%
+                ),
+                #0f141e;
+        }
+
+        .quiz-number {
+            color: #8b7ab5;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 9px;
+        }
+
+        .quiz-question {
+            margin-top: 10px;
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .quiz-option {
+            min-height: 52px;
+            padding: 0 15px;
+            border: 1px solid #293243;
+            border-radius: 10px;
+            background: #111722;
+            color: #9ba5b5;
+            text-align: left;
+            font-size: 11px;
+            cursor: pointer;
+            transition:
+                background .2s ease,
+                border .2s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: #465167;
+            background: #151c29;
+        }
+
+        .quiz-option.correct {
+            border-color: rgba(74,222,128,.5);
+            background: rgba(74,222,128,.08);
+            color: #86efac;
+        }
+
+        .quiz-option.wrong {
+            border-color: rgba(248,113,113,.5);
+            background: rgba(248,113,113,.08);
+            color: #fca5a5;
+        }
+
+        .quiz-feedback {
+            display: none;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #252e3e;
+            border-radius: 12px;
+            background: #111722;
+        }
+
+        .quiz-feedback.show {
+            display: flex;
+        }
+
+        .feedback-character {
+            width: 50px;
+            height: 50px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 11px;
+            background: #181f2c;
+            color: #c4b5fd;
+            font-size: 21px;
+        }
+
+        .feedback-text strong {
+            display: block;
+            font-size: 12px;
+        }
+
+        .feedback-text span {
+            display: block;
+            margin-top: 3px;
+            color: #6f7a8c;
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           COMPLETION
+        ===================================================== */
+
+        .completion {
+            display: none;
+            padding: 45px 25px;
+            margin-top: 30px;
+            border: 1px solid rgba(139,92,246,.3);
+            border-radius: 18px;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(124,58,237,.13),
+                    transparent 60%
+                );
+            text-align: center;
+        }
+
+        .completion.show {
+            display: block;
+            animation:
+                completionIn
+                .5s
+                ease;
+        }
+
+        @keyframes completionIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .completion-icon {
+            font-size: 42px;
+        }
+
+        .completion h2 {
+            margin-top: 12px;
+            font-size: 26px;
+        }
+
+        .completion p {
+            margin-top: 7px;
+            color: #747f91;
+            font-size: 12px;
+        }
+
+        .xp-reward {
+            display: inline-flex;
+            margin-top: 18px;
+            padding: 7px 12px;
+            border: 1px solid rgba(139,92,246,.25);
+            border-radius: 999px;
+            background: rgba(139,92,246,.08);
+            color: #c4b5fd;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .next-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 22px;
+            padding: 12px 17px;
+            border-radius: 9px;
+            background: #7c3aed;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .lesson-hero {
+                grid-template-columns: 1fr;
+            }
+
+            .variable-lab {
+                grid-template-columns: 1fr;
+            }
+
+            .types-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .lesson-header {
+                flex-direction: column;
+            }
+
+            .lesson-header h1 {
+                font-size: 35px;
+            }
+
+            .lesson-hero {
+                padding: 25px 18px;
+            }
+
+            .anime-character {
+                width: 180px;
+                height: 235px;
+            }
+
+            .speech {
+                max-width: 185px;
+            }
+
+            .types-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .assignment-input-row {
+                flex-direction: column;
+            }
+
+            .check-button {
+                min-height: 42px;
+            }
+
+            .animation-area {
+                min-height: 280px;
+            }
+
+            .type-block {
+                left: 0;
+            }
+
+            .name-block {
+                left: 35%;
+            }
+
+            .value-block {
+                right: 0;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                C
+            </div>
+
+            <div class="brand-text">
+
+                <h1>
+                    Craft<span>C</span>
+                </h1>
+
+                <p>
+                    Learn C visually
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="index.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a
+                href="lesson1.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ✓
+                </span>
+
+                <span>
+                    Lesson 01
+                </span>
+
+            </a>
+
+
+            <a
+                href="lesson2.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ✓
+                </span>
+
+                <span>
+                    Lesson 02
+                </span>
+
+            </a>
+
+
+            <a
+                href="#lesson"
+                class="nav-link active"
+            >
+
+                <span class="nav-icon">
+                    ◈
+                </span>
+
+                <span>
+                    Lesson 03
+                </span>
+
+            </a>
+
+
+            <a
+                href="#quiz"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ⚡
+                </span>
+
+                <span>
+                    Practice
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="level-card">
+
+                <div class="level-row">
+
+                    <span id="level-name">
+                        Level 1
+                    </span>
+
+                    <strong id="xp-value">
+                        0 XP
+                    </strong>
+
+                </div>
+
+
+                <div class="xp-track">
+
+                    <div
+                        class="xp-fill"
+                        id="xp-fill"
+                    ></div>
+
+                </div>
+
+
+                <p id="xp-next">
+                    200 XP to next level
+                </p>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <div
+            class="lesson-page"
+            id="lesson"
+        >
+
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+
+            <header class="lesson-header">
+
+                <div>
+
+                    <div class="lesson-breadcrumb">
+
+                        <a href="index.html">
+                            Dashboard
+                        </a>
+
+                        <span>
+                            /
+                        </span>
+
+                        C Fundamentals
+
+                        <span>
+                            /
+                        </span>
+
+                        Lesson 03
+
+                    </div>
+
+
+                    <h1>
+
+                        Variables &
+                        <span>Data Types</span>
+
+                    </h1>
+
+
+                    <p class="lesson-subtitle">
+
+                        Computers need somewhere to store
+                        information. In C, variables give that
+                        information a name and a type.
+
+                    </p>
+
+                </div>
+
+
+                <div class="lesson-number-badge">
+
+                    LESSON 03
+
+                </div>
+
+            </header>
+
+
+            <!-- =================================================
+                 PROGRESS
+            ================================================== -->
+
+            <div class="lesson-progress">
+
+                <div class="lesson-progress-top">
+
+                    <span>
+                        Lesson progress
+                    </span>
+
+                    <strong id="progress-text">
+                        12%
+                    </strong>
+
+                </div>
+
+
+                <div class="lesson-progress-track">
+
+                    <div
+                        class="lesson-progress-fill"
+                        id="progress-fill"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 HERO
+            ================================================== -->
+
+            <section class="lesson-hero">
+
+                <div class="hero-grid"></div>
+
+
+                <div class="hero-content">
+
+                    <span class="hero-label">
+
+                        CHAPTER 01 • VARIABLES
+
+                    </span>
+
+
+                    <h2>
+
+                        Give information
+                        <span>a name.</span>
+
+                    </h2>
+
+
+                    <p>
+
+                        A variable is basically a named
+                        place where your program can keep
+                        a value.
+
+                        But C also needs to know what kind
+                        of value you're storing.
+
+                    </p>
+
+                </div>
+
+
+                <div class="anime-stage">
+
+                    <!--
+                        REPLACE THIS BLOCK WITH YOUR OWN
+                        ANIME IMAGE LATER:
+
+                        
+                    -->
+
+                    <div class="anime-character">
+
+                        <div class="anime-face">
+                           <img
+                            src="anime-guide.png"
+                            class="anime-image"
+                            alt="Anime guide"
+                        >
+                        </div>
+
+                        <div class="anime-label">
+                            MARIN
+                        </div>
+
+                    </div>
+
+
+                    <div class="speech">
+
+                        Think of a variable
+                        as a labeled box.
+
+                        The label is its name.
+                        The value is what's inside. 📦
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 1
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    01 / VISUALIZE
+                </span>
+
+
+                <h2 class="section-title">
+                    A variable is a named memory location
+                </h2>
+
+
+                <p class="section-description">
+
+                    Run the controls and watch the value
+                    inside the variable change.
+
+                </p>
+
+
+                <div class="variable-lab">
+
+
+                    <!-- CODE -->
+
+                    <div class="variable-code">
+
+                        <div class="window-top">
+
+                            <span class="window-dot"></span>
+                            <span class="window-dot"></span>
+                            <span class="window-dot"></span>
+
+                            <span class="window-title">
+                                variables.c
+                            </span>
+
+                        </div>
+
+
+                        <div class="code-content">
+
+                            <div>
+                                <span class="code-keyword">
+                                    int
+                                </span>
+
+                                <span class="code-variable">
+                                    age
+                                </span>
+
+                                =
+                                <span class="code-number">
+                                    18
+                                </span>;
+                            </div>
+
+
+                            <div>
+                                <span class="code-variable">
+                                    age
+                                </span>
+
+                                =
+                                <span class="code-number">
+                                    19
+                                </span>;
+                            </div>
+
+
+                            <div>
+                                <span class="code-keyword">
+                                    printf
+                                </span>(
+                                <span class="code-string">
+                                    "%d"
+                                </span>,
+                                age);
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- MEMORY -->
+
+                    <div class="memory-panel">
+
+                        <div class="memory-header">
+
+                            <div class="memory-title">
+                                Memory
+                            </div>
+
+                            <div
+                                class="memory-state"
+                                id="memory-state"
+                            >
+                                UPDATED
+                            </div>
+
+                        </div>
+
+
+                        <div class="memory-box">
+
+                            <div class="memory-address">
+                                0x7FFE
+                            </div>
+
+                            <div class="memory-name">
+                                age
+                            </div>
+
+                            <div
+                                class="memory-value"
+                                id="memory-value"
+                            >
+                                18
+                            </div>
+
+                            <div class="memory-type">
+                                int
+                            </div>
+
+                        </div>
+
+
+                        <div class="memory-controls">
+
+                            <button
+                                class="memory-button"
+                                onclick="setAge(18)"
+                            >
+                                age = 18
+                            </button>
+
+
+                            <button
+                                class="memory-button"
+                                onclick="setAge(19)"
+                            >
+                                age = 19
+                            </button>
+
+
+                            <button
+                                class="memory-button"
+                                onclick="setAge(20)"
+                            >
+                                age = 20
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 2
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    02 / DATA TYPES
+                </span>
+
+
+                <h2 class="section-title">
+                    C needs to know what you're storing
+                </h2>
+
+
+                <p class="section-description">
+
+                    Different kinds of information need
+                    different data types. Click a card to
+                    inspect it.
+
+                </p>
+
+
+                <div class="types-grid">
+
+
+                    <article
+                        class="type-card"
+                        onclick="selectType(this)"
+                    >
+
+                        <div class="type-symbol">
+                            int
+                        </div>
+
+                        <h3>
+                            Integer
+                        </h3>
+
+                        <p>
+                            Whole numbers without a decimal
+                            part.
+                        </p>
+
+                        <span class="type-example">
+                            int age = 18;
+                        </span>
+
+                    </article>
+
+
+                    <article
+                        class="type-card"
+                        onclick="selectType(this)"
+                    >
+
+                        <div class="type-symbol">
+                            float
+                        </div>
+
+                        <h3>
+                            Decimal
+                        </h3>
+
+                        <p>
+                            Numbers that can contain a
+                            fractional part.
+                        </p>
+
+                        <span class="type-example">
+                            float pi = 3.14;
+                        </span>
+
+                    </article>
+
+
+                    <article
+                        class="type-card"
+                        onclick="selectType(this)"
+                    >
+
+                        <div class="type-symbol">
+                            char
+                        </div>
+
+                        <h3>
+                            Character
+                        </h3>
+
+                        <p>
+                            Stores a single character.
+                        </p>
+
+                        <span class="type-example">
+                            char grade = 'A';
+                        </span>
+
+                    </article>
+
+
+                    <article
+                        class="type-card"
+                        onclick="selectType(this)"
+                    >
+
+                        <div class="type-symbol">
+                            double
+                        </div>
+
+                        <h3>
+                            Double
+                        </h3>
+
+                        <p>
+                            Floating-point type with
+                            greater precision than float.
+                        </p>
+
+                        <span class="type-example">
+                            double x = 9.81;
+                        </span>
+
+                    </article>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 3
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    03 / ANIMATION
+                </span>
+
+
+                <h2 class="section-title">
+                    Watch a variable being created
+                </h2>
+
+
+                <p class="section-description">
+
+                    A declaration tells C the type and name.
+                    An assignment gives the variable a value.
+
+                </p>
+
+
+                <div class="animation-card">
+
+                    <div class="animation-title">
+                        Build: int score = 100;
+                    </div>
+
+                    <div class="animation-subtitle">
+                        Watch the pieces come together.
+                    </div>
+
+
+                    <div class="animation-area">
+
+                        <div
+                            class="type-block"
+                            id="type-block"
+                        >
+                            int
+                        </div>
+
+
+                        <div
+                            class="connection one"
+                            id="connection-one"
+                        ></div>
+
+
+                        <div
+                            class="name-block"
+                            id="name-block"
+                        >
+                            score
+                        </div>
+
+
+                        <div
+                            class="connection two"
+                            id="connection-two"
+                        ></div>
+
+
+                        <div
+                            class="value-block"
+                            id="value-block"
+                        >
+                            = 100
+                        </div>
+
+
+                        <div
+                            class="animation-output"
+                            id="animation-output"
+                        >
+                            Click "Animate"
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="animate-button"
+                        onclick="animateVariable()"
+                    >
+
+                        ▶ Animate
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 4
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    04 / MINI CHALLENGE
+                </span>
+
+
+                <h2 class="section-title">
+                    Write the declaration
+                </h2>
+
+
+                <p class="section-description">
+
+                    You want to store the number 25 in a
+                    variable named <b>marks</b>.
+
+                    Write the correct C statement.
+
+                </p>
+
+
+                <div class="assignment">
+
+                    <h3>
+                        Your answer
+                    </h3>
+
+                    <p>
+                        Include the semicolon.
+                    </p>
+
+
+                    <div class="assignment-input-row">
+
+                        <input
+                            type="text"
+                            class="assignment-input"
+                            id="assignment-input"
+                            placeholder="Example: int marks = 25;"
+                            autocomplete="off"
+                        >
+
+
+                        <button
+                            class="check-button"
+                            onclick="checkAssignment()"
+                        >
+
+                            Check
+
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="assignment-result"
+                        id="assignment-result"
+                    >
+
+                        Waiting for your answer...
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 5 — QUIZ
+            ================================================== -->
+
+            <section
+                class="lesson-section"
+                id="quiz"
+            >
+
+                <span class="section-number">
+                    05 / CHECKPOINT
+                </span>
+
+
+                <h2 class="section-title">
+                    Quick check
+                </h2>
+
+
+                <p class="section-description">
+
+                    Get this right to complete the lesson.
+
+                </p>
+
+
+                <div class="quiz-card">
+
+                    <span class="quiz-number">
+                        QUESTION 01
+                    </span>
+
+
+                    <div class="quiz-question">
+
+                        Which data type is normally used
+                        to store a whole number?
+
+                    </div>
+
+
+                    <div class="quiz-options">
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, true)"
+                        >
+
+                            A. int
+
+                        </button>
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, false)"
+                        >
+
+                            B. float
+
+                        </button>
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, false)"
+                        >
+
+                            C. char
+
+                        </button>
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, false)"
+                        >
+
+                            D. string
+
+                        </button>
+
+
+                    </div>
+
+
+                    <div
+                        class="quiz-feedback"
+                        id="quiz-feedback"
+                    >
+
+                        <div
+                            class="feedback-character"
+                            id="feedback-character"
+                        >
+                            ✦
+                        </div>
+
+
+                        <div class="feedback-text">
+
+                            <strong
+                                id="feedback-title"
+                            >
+                                Correct!
+                            </strong>
+
+                            <span
+                                id="feedback-message"
+                            >
+                                int is used for whole numbers.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     COMPLETION
+                ================================================== -->
+
+                <div
+                    class="completion"
+                    id="completion"
+                >
+
+                    <div class="completion-icon">
+                      <img
+                            src="anime-correct.png"
+                            class="anime-image"
+                            alt="Anime guide"
+                        >
+                    </div>
+
+
+                    <h2>
+                        Lesson 3 Complete!
+                    </h2>
+
+
+                    <p>
+                        You now understand variables,
+                        values and basic C data types.
+                    </p>
+
+
+                    <div class="xp-reward">
+                        +50 XP
+                    </div>
+
+
+                    <br>
+
+
+                    <a
+                        href="lesson4.html"
+                        class="next-button"
+                    >
+
+                        Continue to Lesson 4
+                        →
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+
+        <!-- =====================================================
+             FOOTER
+        ====================================================== -->
+
+        <footer class="footer">
+
+            <div>
+
+              <strong>
+                    DEVELOPED<span>  By USR-KSHITIJ</span>
+                </strong>
+
+
+                <span>
+                    — Learn C visually.
+                </span>
+
+            </div>
+
+
+            <div>
+                Lesson 03
+            </div>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+<script>
+
+
+    /* =====================================================
+       LESSON SETTINGS
+    ===================================================== */
+
+    const LESSON_ID =
+        "lesson3";
+
+    const LESSON_XP =
+        50;
+
+
+    /* =====================================================
+       XP SYSTEM
+    ===================================================== */
+
+    let xp =
+        Number(
+            localStorage.getItem(
+                "craftc_xp"
+            )
+        ) || 0;
+
+
+    let completedLessons =
+        JSON.parse(
+            localStorage.getItem(
+                "craftc_completed"
+            )
+        ) || [];
+
+
+    function updateXP() {
+
+        const level =
+            Math.floor(
+                xp / 200
+            ) + 1;
+
+
+        const currentXP =
+            xp % 200;
+
+
+        const percentage =
+            Math.min(
+                (currentXP / 200) * 100,
+                100
+            );
+
+
+        document.getElementById(
+            "level-name"
+        ).textContent =
+            "Level " + level;
+
+
+        document.getElementById(
+            "xp-value"
+        ).textContent =
+            xp + " XP";
+
+
+        document.getElementById(
+            "xp-fill"
+        ).style.width =
+            percentage + "%";
+
+
+        document.getElementById(
+            "xp-next"
+        ).textContent =
+            (200 - currentXP) +
+            " XP to next level";
+
+    }
+
+
+    /* =====================================================
+       VARIABLE MEMORY
+    ===================================================== */
+
+    function setAge(value) {
+
+        const valueElement =
+            document.getElementById(
+                "memory-value"
+            );
+
+
+        const stateElement =
+            document.getElementById(
+                "memory-state"
+            );
+
+
+        valueElement.style.transform =
+            "scale(1.25)";
+
+
+        valueElement.textContent =
+            value;
+
+
+        stateElement.textContent =
+            "VALUE CHANGED";
+
+
+        setTimeout(
+            () => {
+
+                valueElement.style.transform =
+                    "scale(1)";
+
+                stateElement.textContent =
+                    "UPDATED";
+
+            },
+            250
+        );
+
+    }
+
+
+    /* =====================================================
+       DATA TYPE CARDS
+    ===================================================== */
+
+    function selectType(card) {
+
+        document
+            .querySelectorAll(
+                ".type-card"
+            )
+            .forEach(
+                item =>
+                    item.classList.remove(
+                        "active"
+                    )
+            );
+
+
+        card.classList.add(
+            "active"
+        );
+
+    }
+
+
+    /* =====================================================
+       VARIABLE ANIMATION
+    ===================================================== */
+
+    let animationRunning =
+        false;
+
+
+    function animateVariable() {
+
+        if (animationRunning) {
+            return;
+        }
+
+
+        animationRunning = true;
+
+
+        const typeBlock =
+            document.getElementById(
+                "type-block"
+            );
+
+
+        const nameBlock =
+            document.getElementById(
+                "name-block"
+            );
+
+
+        const valueBlock =
+            document.getElementById(
+                "value-block"
+            );
+
+
+        const connectionOne =
+            document.getElementById(
+                "connection-one"
+            );
+
+
+        const connectionTwo =
+            document.getElementById(
+                "connection-two"
+            );
+
+
+        const output =
+            document.getElementById(
+                "animation-output"
+            );
+
+
+        [
+            typeBlock,
+            nameBlock,
+            valueBlock
+        ].forEach(
+            item =>
+                item.classList.remove(
+                    "show"
+                )
+        );
+
+
+        [
+            connectionOne,
+            connectionTwo
+        ].forEach(
+            item =>
+                item.classList.remove(
+                    "show"
+                )
+        );
+
+
+        output.textContent =
+            "Creating the variable...";
+
+
+        setTimeout(
+            () => {
+
+                typeBlock.classList.add(
+                    "show"
+                );
+
+            },
+            200
+        );
+
+
+        setTimeout(
+            () => {
+
+                nameBlock.classList.add(
+                    "show"
+                );
+
+                connectionOne.classList.add(
+                    "show"
+                );
+
+            },
+            650
+        );
+
+
+        setTimeout(
+            () => {
+
+                valueBlock.classList.add(
+                    "show"
+                );
+
+                connectionTwo.classList.add(
+                    "show"
+                );
+
+            },
+            1100
+        );
+
+
+        setTimeout(
+            () => {
+
+                output.textContent =
+                    "✓ int score = 100;";
+
+
+                animationRunning =
+                    false;
+
+            },
+            1600
+        );
+
+    }
+
+
+    /* =====================================================
+       MINI CHALLENGE
+    ===================================================== */
+
+    function checkAssignment() {
+
+        const input =
+            document.getElementById(
+                "assignment-input"
+            );
+
+
+        const result =
+            document.getElementById(
+                "assignment-result"
+            );
+
+
+        const answer =
+            input.value
+                .trim()
+                .replace(
+                    /\s+/g,
+                    " "
+                );
+
+
+        const correctAnswers = [
+
+            "int marks = 25;",
+
+            "int marks=25;"
+
+        ];
+
+
+        if (
+            correctAnswers.includes(
+                answer
+            )
+        ) {
+
+            result.classList.remove(
+                "error"
+            );
+
+
+            result.classList.add(
+                "success"
+            );
+
+
+            result.textContent =
+                "✓ Correct! int marks = 25;";
+
+
+        } else {
+
+            result.classList.remove(
+                "success"
+            );
+
+
+            result.classList.add(
+                "error"
+            );
+
+
+            result.textContent =
+                "✗ Not quite. Remember: type + variable name + = + value + ;";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       QUIZ
+    ===================================================== */
+
+    let quizAnswered =
+        false;
+
+
+    function answerQuiz(
+        button,
+        correct
+    ) {
+
+        if (quizAnswered) {
+            return;
+        }
+
+
+        if (correct) {
+
+            quizAnswered =
+                true;
+
+
+            button.classList.add(
+                "correct"
+            );
+
+
+            document
+                .querySelectorAll(
+                    ".quiz-option"
+                )
+                .forEach(
+                    option =>
+                        option.disabled =
+                            true
+                );
+
+
+            document.getElementById(
+                "feedback-character"
+            ).textContent =
+                "✦";
+
+
+            document.getElementById(
+                "feedback-title"
+            ).textContent =
+                "Correct! 🔥";
+
+
+            document.getElementById(
+                "feedback-message"
+            ).textContent =
+                "int is the standard integer type for whole numbers.";
+
+
+            document.getElementById(
+                "quiz-feedback"
+            ).classList.add(
+                "show"
+            );
+
+
+            completeLesson();
+
+        } else {
+
+            button.classList.add(
+                "wrong"
+            );
+
+
+            document.getElementById(
+                "feedback-character"
+            ).textContent =
+                "↻";
+
+
+            document.getElementById(
+                "feedback-title"
+            ).textContent =
+                "Not quite.";
+
+
+            document.getElementById(
+                "feedback-message"
+            ).textContent =
+                "Look for the data type used for whole numbers.";
+
+
+            document.getElementById(
+                "quiz-feedback"
+            ).classList.add(
+                "show"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    button.classList.remove(
+                        "wrong"
+                    );
+
+                },
+                900
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       COMPLETE LESSON
+    ===================================================== */
+
+    function completeLesson() {
+
+        if (
+            !completedLessons.includes(
+                LESSON_ID
+            )
+        ) {
+
+            completedLessons.push(
+                LESSON_ID
+            );
+
+
+            xp += LESSON_XP;
+
+
+            localStorage.setItem(
+                "craftc_xp",
+                xp
+            );
+
+
+            localStorage.setItem(
+                "craftc_completed",
+                JSON.stringify(
+                    completedLessons
+                )
+            );
+
+        }
+
+
+        updateXP();
+
+
+        document.getElementById(
+            "progress-fill"
+        ).style.width =
+            "100%";
+
+
+        document.getElementById(
+            "progress-text"
+        ).textContent =
+            "100%";
+
+
+        document.getElementById(
+            "completion"
+        ).classList.add(
+            "show"
+        );
+
+
+        setTimeout(
+            () => {
+
+                document
+                    .getElementById(
+                        "completion"
+                    )
+                    .scrollIntoView({
+                        behavior:
+                            "smooth",
+                        block:
+                            "center"
+                    });
+
+            },
+            100
+        );
+
+    }
+
+
+    /* =====================================================
+       INITIALIZE
+    ===================================================== */
+
+    updateXP();
+
+
+    if (
+        completedLessons.includes(
+            LESSON_ID
+        )
+    ) {
+
+        document.getElementById(
+            "progress-fill"
+        ).style.width =
+            "100%";
+
+
+        document.getElementById(
+            "progress-text"
+        ).textContent =
+            "100%";
+
+
+        document.getElementById(
+            "completion"
+        ).classList.add(
+            "show"
+        );
+
+    }
+
+
+</script>
+
+
+</body>
+
+</html>
+

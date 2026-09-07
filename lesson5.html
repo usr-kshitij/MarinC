@@ -1,0 +1,2874 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Lesson 5 — Input & Output | CraftC</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           LESSON PAGE
+        ===================================================== */
+
+        .lesson-page {
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .lesson-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 30px;
+            margin-bottom: 35px;
+        }
+
+        .lesson-breadcrumb {
+            color: #687286;
+            font-size: 11px;
+            margin-bottom: 10px;
+        }
+
+        .lesson-breadcrumb a {
+            color: #9b8acb;
+        }
+
+        .lesson-header h1 {
+            font-size: clamp(32px, 5vw, 50px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        .lesson-header h1 span {
+            color: #a78bfa;
+        }
+
+        .lesson-subtitle {
+            max-width: 700px;
+            margin-top: 12px;
+            color: #7f899b;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .lesson-number-badge {
+            flex-shrink: 0;
+            padding: 8px 12px;
+            border: 1px solid #292f3e;
+            border-radius: 8px;
+            background: #111722;
+            color: #a78bfa;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
+
+        .lesson-progress {
+            margin-bottom: 35px;
+        }
+
+        .lesson-progress-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #667184;
+            font-size: 10px;
+        }
+
+        .lesson-progress-top strong {
+            color: #a78bfa;
+        }
+
+        .lesson-progress-track {
+            height: 5px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #1d2532;
+        }
+
+        .lesson-progress-fill {
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(
+                90deg,
+                #7c3aed,
+                #a78bfa
+            );
+            transition: width .5s ease;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .lesson-hero {
+            position: relative;
+            min-height: 390px;
+            display: grid;
+            grid-template-columns: 1fr .9fr;
+            align-items: center;
+            gap: 45px;
+            padding: 40px;
+            overflow: hidden;
+            border: 1px solid #242d3c;
+            border-radius: 22px;
+            background:
+                radial-gradient(
+                    circle at 80% 45%,
+                    rgba(124,58,237,.13),
+                    transparent 35%
+                ),
+                #0e131d;
+            margin-bottom: 60px;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: .35;
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.025) 1px,
+                    transparent 1px
+                );
+            background-size: 35px 35px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-label {
+            color: #8f7bbf;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.8px;
+        }
+
+        .hero-content h2 {
+            margin-top: 10px;
+            font-size: 32px;
+            line-height: 1.15;
+            letter-spacing: -1px;
+        }
+
+        .hero-content h2 span {
+            color: #a78bfa;
+        }
+
+        .hero-content p {
+            margin-top: 15px;
+            color: #7c8799;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+
+        /* =====================================================
+           ANIME GUIDE
+        ===================================================== */
+
+        .anime-stage {
+            position: relative;
+            min-height: 290px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .anime-character {
+            width: 210px;
+            height: 265px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px dashed #394354;
+            border-radius: 105px 105px 28px 28px;
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(139,92,246,.12),
+                    rgba(139,92,246,.02)
+                );
+            animation:
+                floatCharacter
+                3.5s
+                ease-in-out
+                infinite;
+        }
+
+        @keyframes floatCharacter {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+
+        }
+
+        .anime-face {
+            color: #c4b5fd;
+            font-size: 70px;
+            line-height: 1;
+        }
+
+        .anime-label {
+            margin-top: 20px;
+            color: #667184;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        /*
+            Replace this placeholder with your own anime image:
+
+            <img
+                src="images/guide-input.png"
+                class="anime-image"
+                alt="Anime guide"
+            >
+        */
+
+        .anime-image {
+            max-width: 250px;
+            max-height: 320px;
+            object-fit: contain;
+            filter:
+                drop-shadow(
+                    0 25px 30px
+                    rgba(0,0,0,.35)
+                );
+            animation:
+                floatCharacter
+                3.5s
+                ease-in-out
+                infinite;
+        }
+
+        .speech {
+            position: absolute;
+            top: 0;
+            right: -5px;
+            max-width: 235px;
+            padding: 14px 16px;
+            border: 1px solid #30394a;
+            border-radius: 13px;
+            background: #151b27;
+            color: #bac2cf;
+            font-size: 11px;
+            line-height: 1.55;
+            box-shadow:
+                0 20px 45px
+                rgba(0,0,0,.25);
+        }
+
+
+        /* =====================================================
+           SECTIONS
+        ===================================================== */
+
+        .lesson-section {
+            margin-bottom: 65px;
+        }
+
+        .section-number {
+            color: #7f6ea9;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 10px;
+        }
+
+        .section-title {
+            margin-top: 7px;
+            font-size: 26px;
+            letter-spacing: -.8px;
+        }
+
+        .section-description {
+            max-width: 700px;
+            margin-top: 6px;
+            color: #707b8d;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           TWO CONCEPT CARDS
+        ===================================================== */
+
+        .io-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 24px;
+        }
+
+        .io-card {
+            padding: 25px;
+            border: 1px solid #252e3e;
+            border-radius: 16px;
+            background: #0f141e;
+        }
+
+        .io-card.output {
+            border-top: 2px solid #8b5cf6;
+        }
+
+        .io-card.input {
+            border-top: 2px solid #60a5fa;
+        }
+
+        .io-symbol {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .io-card.output .io-symbol {
+            color: #c4b5fd;
+        }
+
+        .io-card.input .io-symbol {
+            color: #93c5fd;
+        }
+
+        .io-card h3 {
+            margin-top: 13px;
+            font-size: 15px;
+        }
+
+        .io-card p {
+            margin-top: 8px;
+            color: #707b8d;
+            font-size: 11px;
+            line-height: 1.7;
+        }
+
+        .io-code {
+            margin-top: 17px;
+            padding: 14px;
+            border: 1px solid #222b3a;
+            border-radius: 9px;
+            background: #0a0f16;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            color: #cbd2dd;
+        }
+
+        .purple {
+            color: #c084fc;
+        }
+
+        .blue {
+            color: #60a5fa;
+        }
+
+        .green {
+            color: #86efac;
+        }
+
+        .yellow {
+            color: #fbbf24;
+        }
+
+        .gray {
+            color: #697487;
+        }
+
+
+        /* =====================================================
+           FLOW VISUALIZER
+        ===================================================== */
+
+        .flow-card {
+            margin-top: 25px;
+            padding: 28px;
+            border: 1px solid #252e3e;
+            border-radius: 18px;
+            background: #0e131d;
+        }
+
+        .flow-title {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .flow-subtitle {
+            margin-top: 5px;
+            color: #687386;
+            font-size: 10px;
+        }
+
+        .flow {
+            display: grid;
+            grid-template-columns:
+                1fr 50px 1fr 50px 1fr;
+            align-items: center;
+            gap: 10px;
+            margin-top: 28px;
+        }
+
+        .flow-node {
+            min-height: 130px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 18px;
+            border: 1px solid #293243;
+            border-radius: 13px;
+            background: #111722;
+            text-align: center;
+            opacity: .45;
+            transform: translateY(8px);
+            transition:
+                opacity .4s ease,
+                transform .4s ease,
+                border-color .4s ease,
+                background .4s ease;
+        }
+
+        .flow-node.active {
+            opacity: 1;
+            transform: translateY(0);
+            border-color: #7157a9;
+            background: rgba(124,58,237,.07);
+        }
+
+        .flow-icon {
+            font-size: 27px;
+        }
+
+        .flow-node strong {
+            margin-top: 9px;
+            color: #aeb7c5;
+            font-size: 11px;
+        }
+
+        .flow-node span {
+            margin-top: 5px;
+            color: #687386;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 8px;
+        }
+
+        .flow-arrow {
+            color: #555f70;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .flow-controls {
+            display: flex;
+            justify-content: center;
+            margin-top: 23px;
+        }
+
+        .flow-button {
+            padding: 11px 17px;
+            border: 1px solid #49366e;
+            border-radius: 8px;
+            background: rgba(124,58,237,.09);
+            color: #c4b5fd;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           PRINTF VISUALIZER
+        ===================================================== */
+
+        .printf-card {
+            margin-top: 25px;
+            padding: 28px;
+            border: 1px solid #252e3e;
+            border-radius: 18px;
+            background: #0f141e;
+        }
+
+        .printf-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .code-window,
+        .terminal-window {
+            overflow: hidden;
+            border: 1px solid #242d3c;
+            border-radius: 11px;
+            background: #090e15;
+        }
+
+        .window-bar {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 9px 12px;
+            border-bottom: 1px solid #202838;
+            background: #111722;
+        }
+
+        .window-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #454e5e;
+        }
+
+        .window-title {
+            margin-left: 6px;
+            color: #5e697b;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 8px;
+        }
+
+        .code-content {
+            min-height: 170px;
+            padding: 20px;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            line-height: 2;
+        }
+
+        .terminal-content {
+            min-height: 170px;
+            padding: 20px;
+            color: #9ca6b6;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        .terminal-prompt {
+            color: #7c3aed;
+        }
+
+        .terminal-output {
+            color: #d1d5db;
+        }
+
+        .printf-button {
+            margin-top: 18px;
+            padding: 10px 15px;
+            border: 1px solid #49366e;
+            border-radius: 8px;
+            background: #151121;
+            color: #c4b5fd;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           SCANF PLAYGROUND
+        ===================================================== */
+
+        .scanf-card {
+            margin-top: 25px;
+            padding: 28px;
+            border: 1px solid #252e3e;
+            border-radius: 18px;
+            background: #0f141e;
+        }
+
+        .scanf-layout {
+            display: grid;
+            grid-template-columns: .85fr 1.15fr;
+            gap: 25px;
+            margin-top: 22px;
+        }
+
+        .scanf-code {
+            padding: 20px;
+            border: 1px solid #222b3a;
+            border-radius: 11px;
+            background: #090e15;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            line-height: 2;
+        }
+
+        .scanf-demo {
+            padding: 20px;
+            border: 1px solid #252e3e;
+            border-radius: 11px;
+            background: #111722;
+        }
+
+        .scanf-demo label {
+            display: block;
+            margin-bottom: 7px;
+            color: #697487;
+            font-size: 9px;
+        }
+
+        .scanf-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #303a4b;
+            border-radius: 8px;
+            outline: none;
+            background: #0a0f16;
+            color: #d1d5db;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+        }
+
+        .scanf-input:focus {
+            border-color: #6b54a0;
+        }
+
+        .scanf-run {
+            width: 100%;
+            margin-top: 10px;
+            padding: 11px;
+            border: 0;
+            border-radius: 8px;
+            background: #7c3aed;
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .scanf-memory {
+            margin-top: 15px;
+            padding: 14px;
+            border: 1px dashed #343e50;
+            border-radius: 9px;
+        }
+
+        .memory-label {
+            color: #697487;
+            font-size: 8px;
+            letter-spacing: 1px;
+        }
+
+        .memory-value {
+            margin-top: 7px;
+            color: #93c5fd;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 15px;
+        }
+
+
+        /* =====================================================
+           FORMAT SPECIFIERS
+        ===================================================== */
+
+        .format-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .format-card {
+            padding: 19px;
+            border: 1px solid #252e3e;
+            border-radius: 13px;
+            background: #0f141e;
+        }
+
+        .format-symbol {
+            color: #c084fc;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 21px;
+            font-weight: 600;
+        }
+
+        .format-card strong {
+            display: block;
+            margin-top: 10px;
+            color: #aeb7c5;
+            font-size: 10px;
+        }
+
+        .format-card p {
+            margin-top: 5px;
+            color: #687386;
+            font-size: 9px;
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           COMMON MISTAKES
+        ===================================================== */
+
+        .mistakes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .mistake {
+            padding: 18px;
+            border: 1px solid #252e3e;
+            border-radius: 13px;
+            background: #0f141e;
+        }
+
+        .mistake-title {
+            color: #fca5a5;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 10px;
+        }
+
+        .mistake p {
+            margin-top: 7px;
+            color: #707b8d;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           QUIZ
+        ===================================================== */
+
+        .quiz-card {
+            padding: 28px;
+            border: 1px solid #252e3e;
+            border-radius: 18px;
+            background:
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(124,58,237,.08),
+                    transparent 30%
+                ),
+                #0f141e;
+        }
+
+        .quiz-number {
+            color: #8b7ab5;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 9px;
+        }
+
+        .quiz-question {
+            margin-top: 10px;
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .quiz-code {
+            margin-top: 15px;
+            padding: 14px;
+            border: 1px solid #222b3a;
+            border-radius: 9px;
+            background: #0a0f16;
+            color: #cbd2dd;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns:
+                repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .quiz-option {
+            min-height: 52px;
+            padding: 0 15px;
+            border: 1px solid #293243;
+            border-radius: 10px;
+            background: #111722;
+            color: #9ba5b5;
+            text-align: left;
+            font-size: 11px;
+            cursor: pointer;
+            transition:
+                background .2s ease,
+                border .2s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: #465167;
+            background: #151c29;
+        }
+
+        .quiz-option.correct {
+            border-color: rgba(74,222,128,.5);
+            background: rgba(74,222,128,.08);
+            color: #86efac;
+        }
+
+        .quiz-option.wrong {
+            border-color: rgba(248,113,113,.5);
+            background: rgba(248,113,113,.08);
+            color: #fca5a5;
+        }
+
+        .quiz-feedback {
+            display: none;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #252e3e;
+            border-radius: 12px;
+            background: #111722;
+        }
+
+        .quiz-feedback.show {
+            display: flex;
+        }
+
+        .feedback-character {
+            width: 50px;
+            height: 50px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 11px;
+            background: #181f2c;
+            color: #c4b5fd;
+            font-size: 21px;
+        }
+
+        .feedback-text strong {
+            display: block;
+            font-size: 12px;
+        }
+
+        .feedback-text span {
+            display: block;
+            margin-top: 3px;
+            color: #6f7a8c;
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           COMPLETION
+        ===================================================== */
+
+        .completion {
+            display: none;
+            padding: 45px 25px;
+            margin-top: 30px;
+            border: 1px solid rgba(139,92,246,.3);
+            border-radius: 18px;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(124,58,237,.13),
+                    transparent 60%
+                );
+            text-align: center;
+        }
+
+        .completion.show {
+            display: block;
+            animation:
+                completionIn
+                .5s
+                ease;
+        }
+
+        @keyframes completionIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .completion-icon {
+            font-size: 42px;
+        }
+
+        .completion h2 {
+            margin-top: 12px;
+            font-size: 26px;
+        }
+
+        .completion p {
+            margin-top: 7px;
+            color: #747f91;
+            font-size: 12px;
+        }
+
+        .xp-reward {
+            display: inline-flex;
+            margin-top: 18px;
+            padding: 7px 12px;
+            border: 1px solid rgba(139,92,246,.25);
+            border-radius: 999px;
+            background: rgba(139,92,246,.08);
+            color: #c4b5fd;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .next-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 22px;
+            padding: 12px 17px;
+            border-radius: 9px;
+            background: #7c3aed;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 950px) {
+
+            .lesson-hero {
+                grid-template-columns: 1fr;
+            }
+
+            .format-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .flow {
+                grid-template-columns:
+                    1fr;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .lesson-header {
+                flex-direction: column;
+            }
+
+            .io-grid,
+            .printf-layout,
+            .scanf-layout,
+            .mistakes {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .lesson-hero {
+                padding: 25px 18px;
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .lesson-header h1 {
+                font-size: 36px;
+            }
+
+            .format-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .anime-character {
+                width: 175px;
+                height: 230px;
+            }
+
+            .speech {
+                max-width: 180px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                C
+            </div>
+
+            <div class="brand-text">
+
+                <h1>
+                    Craft<span>C</span>
+                </h1>
+
+                <p>
+                    Learn C visually
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="index.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a
+                href="lesson1.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ✓
+                </span>
+
+                <span>
+                    Lesson 01
+                </span>
+
+            </a>
+
+
+            <a
+                href="lesson2.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ✓
+                </span>
+
+                <span>
+                    Lesson 02
+                </span>
+
+            </a>
+
+
+            <a
+                href="lesson3.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ✓
+                </span>
+
+                <span>
+                    Lesson 03
+                </span>
+
+            </a>
+
+
+            <a
+                href="lesson4.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ✓
+                </span>
+
+                <span>
+                    Lesson 04
+                </span>
+
+            </a>
+
+
+            <a
+                href="#lesson"
+                class="nav-link active"
+            >
+
+                <span class="nav-icon">
+                    ◈
+                </span>
+
+                <span>
+                    Lesson 05
+                </span>
+
+            </a>
+
+
+            <a
+                href="#quiz"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ⚡
+                </span>
+
+                <span>
+                    Practice
+                </span>
+
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="level-card">
+
+                <div class="level-row">
+
+                    <span id="level-name">
+                        Level 1
+                    </span>
+
+                    <strong id="xp-value">
+                        0 XP
+                    </strong>
+
+                </div>
+
+
+                <div class="xp-track">
+
+                    <div
+                        class="xp-fill"
+                        id="xp-fill"
+                    ></div>
+
+                </div>
+
+
+                <p id="xp-next">
+                    200 XP to next level
+                </p>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <div
+            class="lesson-page"
+            id="lesson"
+        >
+
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+
+            <header class="lesson-header">
+
+                <div>
+
+                    <div class="lesson-breadcrumb">
+
+                        <a href="index.html">
+                            Dashboard
+                        </a>
+
+                        <span>
+                            /
+                        </span>
+
+                        C Fundamentals
+
+                        <span>
+                            /
+                        </span>
+
+                        Lesson 05
+
+                    </div>
+
+
+                    <h1>
+
+                        Input &
+                        <span>Output</span>
+
+                    </h1>
+
+
+                    <p class="lesson-subtitle">
+
+                        Learn how your C program talks to the
+                        outside world using <b>printf()</b> and
+                        <b>scanf()</b>.
+
+                    </p>
+
+                </div>
+
+
+                <div class="lesson-number-badge">
+
+                    LESSON 05
+
+                </div>
+
+            </header>
+
+
+            <!-- =================================================
+                 PROGRESS
+            ================================================== -->
+
+            <div class="lesson-progress">
+
+                <div class="lesson-progress-top">
+
+                    <span>
+                        Lesson progress
+                    </span>
+
+                    <strong id="progress-text">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="lesson-progress-track">
+
+                    <div
+                        class="lesson-progress-fill"
+                        id="progress-fill"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 HERO
+            ================================================== -->
+
+            <section class="lesson-hero">
+
+                <div class="hero-grid"></div>
+
+
+                <div class="hero-content">
+
+                    <span class="hero-label">
+
+                        CHAPTER 01 • INPUT / OUTPUT
+
+                    </span>
+
+
+                    <h2>
+
+                        Make C
+                        <span>talk back.</span>
+
+                    </h2>
+
+
+                    <p>
+
+                        Until now, your programs could calculate
+                        things, but they couldn't really interact
+                        with the user.
+
+                        That's about to change.
+
+                    </p>
+
+                </div>
+
+
+                <div class="anime-stage">
+
+                    <!--
+                        YOUR ANIME IMAGE:
+
+                        
+                    -->
+
+                    <div class="anime-character">
+
+                        <div class="anime-face">
+                           <img
+                            src="anime-guide.png"
+                            class="anime-image"
+                            alt="Anime guide"
+                        >
+                        </div>
+
+                        <div class="anime-label">
+                           MARIN
+                        </div>
+
+                    </div>
+
+
+                    <div class="speech">
+
+                        I'll give C some information...
+
+                        C stores it...
+
+                        then C can give me
+                        an answer. ✦
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 1
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    01 / THE TWO FUNCTIONS
+                </span>
+
+
+                <h2 class="section-title">
+                    printf() vs scanf()
+                </h2>
+
+
+                <p class="section-description">
+
+                    Think of them as two directions of
+                    communication.
+
+                </p>
+
+
+                <div class="io-grid">
+
+
+                    <article class="io-card output">
+
+                        <div class="io-symbol">
+                            printf()
+                        </div>
+
+
+                        <h3>
+                            Output
+                        </h3>
+
+
+                        <p>
+
+                            Sends information from your
+                            program to the screen.
+
+                        </p>
+
+
+                        <div class="io-code">
+
+                            <span class="purple">
+                                printf
+                            </span>
+
+                            (<span class="green">
+                            "Hello!"
+                            </span>);
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="io-card input">
+
+                        <div class="io-symbol">
+                            scanf()
+                        </div>
+
+
+                        <h3>
+                            Input
+                        </h3>
+
+
+                        <p>
+
+                            Takes information from the user
+                            and stores it inside a variable.
+
+                        </p>
+
+
+                        <div class="io-code">
+
+                            <span class="purple">
+                                scanf
+                            </span>
+
+                            (<span class="green">
+                            "%d"
+                            </span>,
+
+                            <span class="blue">
+                            &age
+                            </span>);
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 2 — FLOW
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    02 / VISUAL FLOW
+                </span>
+
+
+                <h2 class="section-title">
+                    What actually happens?
+                </h2>
+
+
+                <p class="section-description">
+
+                    Press the button and watch information
+                    travel through your program.
+
+                </p>
+
+
+                <div class="flow-card">
+
+
+                    <div class="flow-title">
+                        User → Program → Screen
+                    </div>
+
+
+                    <div class="flow-subtitle">
+                        The basic input/output cycle
+                    </div>
+
+
+                    <div class="flow">
+
+
+                        <div
+                            class="flow-node"
+                            id="flow-user"
+                        >
+
+                            <div class="flow-icon">
+                                👤
+                            </div>
+
+                            <strong>
+                                User
+                            </strong>
+
+                            <span>
+                                types: 18
+                            </span>
+
+                        </div>
+
+
+                        <div class="flow-arrow">
+                            →
+                        </div>
+
+
+                        <div
+                            class="flow-node"
+                            id="flow-memory"
+                        >
+
+                            <div class="flow-icon">
+                                📦
+                            </div>
+
+                            <strong>
+                                Variable
+                            </strong>
+
+                            <span>
+                                age = 18
+                            </span>
+
+                        </div>
+
+
+                        <div class="flow-arrow">
+                            →
+                        </div>
+
+
+                        <div
+                            class="flow-node"
+                            id="flow-screen"
+                        >
+
+                            <div class="flow-icon">
+                                🖥
+                            </div>
+
+                            <strong>
+                                Screen
+                            </strong>
+
+                            <span>
+                                Age: 18
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="flow-controls">
+
+                        <button
+                            class="flow-button"
+                            onclick="runFlow()"
+                        >
+
+                            ▶ Run the flow
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 3 — PRINTF
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    03 / PRINTF
+                </span>
+
+
+                <h2 class="section-title">
+                    Your first output
+                </h2>
+
+
+                <p class="section-description">
+
+                    <code>printf()</code> displays text and
+                    values on the screen.
+
+                </p>
+
+
+                <div class="printf-card">
+
+
+                    <div class="printf-layout">
+
+
+                        <div class="code-window">
+
+                            <div class="window-bar">
+
+                                <span class="window-dot"></span>
+                                <span class="window-dot"></span>
+                                <span class="window-dot"></span>
+
+                                <span class="window-title">
+                                    main.c
+                                </span>
+
+                            </div>
+
+
+                            <div class="code-content">
+
+                                <span class="purple">
+                                    #include
+                                </span>
+
+                                &lt;stdio.h&gt;
+
+                                <br><br>
+
+                                <span class="blue">
+                                    int
+                                </span>
+
+                                main() {
+
+                                <br>
+
+                                &nbsp;&nbsp;
+
+                                <span class="purple">
+                                    printf
+                                </span>
+
+                                (
+
+                                <span class="green">
+                                "Hello, C!"
+                                </span>
+
+                                );
+
+                                <br>
+
+                                &nbsp;&nbsp;
+
+                                <span class="blue">
+                                    return
+                                </span>
+
+                                0;
+
+                                <br>
+
+                                }
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="terminal-window">
+
+                            <div class="window-bar">
+
+                                <span class="window-dot"></span>
+                                <span class="window-dot"></span>
+                                <span class="window-dot"></span>
+
+                                <span class="window-title">
+                                    TERMINAL
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="terminal-content"
+                                id="terminal-output"
+                            >
+
+                                <span class="gray">
+                                    Program waiting...
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <button
+                        class="printf-button"
+                        onclick="runPrintf()"
+                    >
+
+                        ▶ Run printf()
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 4 — SCANF
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    04 / SCANF
+                </span>
+
+
+                <h2 class="section-title">
+                    Now let the user enter something
+                </h2>
+
+
+                <p class="section-description">
+
+                    <code>scanf()</code> reads input and stores
+                    it in a variable.
+
+                    Try it yourself.
+
+                </p>
+
+
+                <div class="scanf-card">
+
+
+                    <div class="scanf-layout">
+
+
+                        <div class="scanf-code">
+
+                            <span class="blue">
+                                int
+                            </span>
+
+                            age;
+
+                            <br><br>
+
+                            <span class="purple">
+                                scanf
+                            </span>
+
+                            (
+
+                            <span class="green">
+                            "%d"
+                            </span>,
+
+                            <span class="blue">
+                            &amp;age
+                            </span>
+
+                            );
+
+                            <br><br>
+
+                            <span class="gray">
+                                // age now contains
+                                // the user's number
+                            </span>
+
+                        </div>
+
+
+                        <div class="scanf-demo">
+
+                            <label>
+                                Enter your age
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="age-input"
+                                class="scanf-input"
+                                placeholder="e.g. 18"
+                            >
+
+
+                            <button
+                                class="scanf-run"
+                                onclick="runScanf()"
+                            >
+
+                                scanf()
+
+                            </button>
+
+
+                            <div class="scanf-memory">
+
+                                <div class="memory-label">
+                                    VARIABLE: age
+                                </div>
+
+                                <div
+                                    class="memory-value"
+                                    id="age-memory"
+                                >
+                                    empty
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 5 — FORMAT SPECIFIERS
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    05 / FORMAT SPECIFIERS
+                </span>
+
+
+                <h2 class="section-title">
+                    How does C know what type of data?
+                </h2>
+
+
+                <p class="section-description">
+
+                    Format specifiers tell functions like
+                    <code>printf()</code> and <code>scanf()</code>
+                    what kind of value they're dealing with.
+
+                </p>
+
+
+                <div class="format-grid">
+
+
+                    <div class="format-card">
+
+                        <div class="format-symbol">
+                            %d
+                        </div>
+
+                        <strong>
+                            Integer
+                        </strong>
+
+                        <p>
+                            Whole numbers like 10, 25, -4
+                        </p>
+
+                    </div>
+
+
+                    <div class="format-card">
+
+                        <div class="format-symbol">
+                            %f
+                        </div>
+
+                        <strong>
+                            Float
+                        </strong>
+
+                        <p>
+                            Decimal numbers like 3.14
+                        </p>
+
+                    </div>
+
+
+                    <div class="format-card">
+
+                        <div class="format-symbol">
+                            %c
+                        </div>
+
+                        <strong>
+                            Character
+                        </strong>
+
+                        <p>
+                            One character like A or ?
+                        </p>
+
+                    </div>
+
+
+                    <div class="format-card">
+
+                        <div class="format-symbol">
+                            %s
+                        </div>
+
+                        <strong>
+                            String
+                        </strong>
+
+                        <p>
+                            Text such as "Hello"
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 6 — IMPORTANT &
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    06 / COMMON MISTAKES
+                </span>
+
+
+                <h2 class="section-title">
+                    Don't make these beginner mistakes
+                </h2>
+
+
+                <div class="mistakes">
+
+
+                    <div class="mistake">
+
+                        <div class="mistake-title">
+                            ✗ scanf("%d", age);
+                        </div>
+
+                        <p>
+
+                            For a normal variable,
+                            <code>scanf()</code> needs its
+                            address: <code>&amp;age</code>.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="mistake">
+
+                        <div class="mistake-title">
+                            ✓ scanf("%d", &amp;age);
+                        </div>
+
+                        <p>
+
+                            This tells scanf where the variable
+                            is stored so it can put the value there.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="mistake">
+
+                        <div class="mistake-title">
+                            ✗ printf(age);
+                        </div>
+
+                        <p>
+
+                            Don't treat a variable as a format
+                            string. Use a format specifier.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="mistake">
+
+                        <div class="mistake-title">
+                            ✓ printf("%d", age);
+                        </div>
+
+                        <p>
+
+                            <code>%d</code> tells printf that
+                            <code>age</code> is an integer.
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 7 — QUIZ
+            ================================================== -->
+
+            <section
+                class="lesson-section"
+                id="quiz"
+            >
+
+                <span class="section-number">
+                    07 / CHECKPOINT
+                </span>
+
+
+                <h2 class="section-title">
+                    Quick check
+                </h2>
+
+
+                <p class="section-description">
+
+                    One question. Get it right to complete
+                    the lesson.
+
+                </p>
+
+
+                <div class="quiz-card">
+
+
+                    <span class="quiz-number">
+                        QUESTION 01
+                    </span>
+
+
+                    <div class="quiz-question">
+
+                        Which statement correctly takes
+                        an integer input into <code>age</code>?
+
+                    </div>
+
+
+                    <div class="quiz-code">
+
+                        int age;
+
+                    </div>
+
+
+                    <div class="quiz-options">
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, false)"
+                        >
+
+                            A. scanf("%d", age);
+
+                        </button>
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, true)"
+                        >
+
+                            B. scanf("%d", &amp;age);
+
+                        </button>
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, false)"
+                        >
+
+                            C. printf("%d", &amp;age);
+
+                        </button>
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, false)"
+                        >
+
+                            D. scanf("%f", &amp;age);
+
+                        </button>
+
+
+                    </div>
+
+
+                    <div
+                        class="quiz-feedback"
+                        id="quiz-feedback"
+                    >
+
+                        <div
+                            class="feedback-character"
+                            id="feedback-character"
+                        >
+                            ✦
+                        </div>
+
+
+                        <div class="feedback-text">
+
+                            <strong
+                                id="feedback-title"
+                            >
+                                Correct!
+                            </strong>
+
+                            <span
+                                id="feedback-message"
+                            >
+                                scanf() needs the address of
+                                the variable.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     COMPLETION
+                ================================================== -->
+
+                <div
+                    class="completion"
+                    id="completion"
+                >
+
+                    <div class="completion-icon">
+                        <img
+                            src="anime-explain.png"
+                            class="anime-image"
+                            alt="Anime guide"
+                        >
+                    </div>
+
+
+                    <h2>
+                        Lesson 5 Complete!
+                    </h2>
+
+
+                    <p>
+
+                        You now understand printf(),
+                        scanf(), input/output flow and
+                        format specifiers.
+
+                    </p>
+
+
+                    <div class="xp-reward">
+                        +50 XP
+                    </div>
+
+
+                    <br>
+
+
+                    <a
+                        href="lesson6.html"
+                        class="next-button"
+                    >
+
+                        Continue to Lesson 6
+                        →
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+
+        <!-- =====================================================
+             FOOTER
+        ====================================================== -->
+
+        <footer class="footer">
+
+            <div>
+
+                <strong>
+                    DEVELOPED<span>  By USR-KSHITIJ</span>
+                </strong>
+
+
+                <span>
+                    — Learn C visually.
+                </span>
+
+            </div>
+
+
+            <div>
+                Lesson 05
+            </div>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+<script>
+
+
+    /* =====================================================
+       LESSON SETTINGS
+    ===================================================== */
+
+    const LESSON_ID =
+        "lesson5";
+
+    const LESSON_XP =
+        50;
+
+
+    /* =====================================================
+       XP SYSTEM
+    ===================================================== */
+
+    let xp =
+        Number(
+            localStorage.getItem(
+                "craftc_xp"
+            )
+        ) || 0;
+
+
+    let completedLessons =
+        JSON.parse(
+            localStorage.getItem(
+                "craftc_completed"
+            )
+        ) || [];
+
+
+    function updateXP() {
+
+        const level =
+            Math.floor(
+                xp / 200
+            ) + 1;
+
+
+        const currentXP =
+            xp % 200;
+
+
+        const percentage =
+            Math.min(
+                (currentXP / 200) * 100,
+                100
+            );
+
+
+        document.getElementById(
+            "level-name"
+        ).textContent =
+            "Level " + level;
+
+
+        document.getElementById(
+            "xp-value"
+        ).textContent =
+            xp + " XP";
+
+
+        document.getElementById(
+            "xp-fill"
+        ).style.width =
+            percentage + "%";
+
+
+        document.getElementById(
+            "xp-next"
+        ).textContent =
+            (200 - currentXP) +
+            " XP to next level";
+
+    }
+
+
+    /* =====================================================
+       PROGRESS
+    ===================================================== */
+
+    let lessonProgress = 0;
+
+
+    function updateProgress(value) {
+
+        lessonProgress =
+            Math.max(
+                lessonProgress,
+                value
+            );
+
+
+        document.getElementById(
+            "progress-fill"
+        ).style.width =
+            lessonProgress + "%";
+
+
+        document.getElementById(
+            "progress-text"
+        ).textContent =
+            lessonProgress + "%";
+
+    }
+
+
+    /* =====================================================
+       FLOW ANIMATION
+    ===================================================== */
+
+    function runFlow() {
+
+        const user =
+            document.getElementById(
+                "flow-user"
+            );
+
+        const memory =
+            document.getElementById(
+                "flow-memory"
+            );
+
+        const screen =
+            document.getElementById(
+                "flow-screen"
+            );
+
+
+        user.classList.remove(
+            "active"
+        );
+
+        memory.classList.remove(
+            "active"
+        );
+
+        screen.classList.remove(
+            "active"
+        );
+
+
+        setTimeout(
+            () => {
+
+                user.classList.add(
+                    "active"
+                );
+
+            },
+            100
+        );
+
+
+        setTimeout(
+            () => {
+
+                memory.classList.add(
+                    "active"
+                );
+
+            },
+            900
+        );
+
+
+        setTimeout(
+            () => {
+
+                screen.classList.add(
+                    "active"
+                );
+
+                updateProgress(25);
+
+            },
+            1700
+        );
+
+    }
+
+
+    /* =====================================================
+       PRINTF DEMO
+    ===================================================== */
+
+    function runPrintf() {
+
+        const terminal =
+            document.getElementById(
+                "terminal-output"
+            );
+
+
+        terminal.innerHTML =
+            `
+                <span class="terminal-prompt">
+                    $
+                </span>
+                ./main
+
+                <br>
+
+                <span class="terminal-output">
+                    Hello, C!
+                </span>
+
+                <br><br>
+
+                <span class="gray">
+                    Program finished.
+                </span>
+            `;
+
+
+        updateProgress(40);
+
+    }
+
+
+    /* =====================================================
+       SCANF DEMO
+    ===================================================== */
+
+    function runScanf() {
+
+        const input =
+            document.getElementById(
+                "age-input"
+            );
+
+
+        const memory =
+            document.getElementById(
+                "age-memory"
+            );
+
+
+        const value =
+            input.value.trim();
+
+
+        if (value === "") {
+
+            memory.textContent =
+                "waiting for input...";
+
+            return;
+
+        }
+
+
+        memory.textContent =
+            value;
+
+
+        memory.style.animation =
+            "none";
+
+
+        void memory.offsetWidth;
+
+
+        memory.style.animation =
+            "memoryPop .4s ease";
+
+
+        updateProgress(60);
+
+    }
+
+
+    /* =====================================================
+       MEMORY ANIMATION
+    ===================================================== */
+
+    const memoryStyle =
+        document.createElement(
+            "style"
+        );
+
+
+    memoryStyle.textContent = `
+
+        @keyframes memoryPop {
+
+            0% {
+                transform: scale(.9);
+                opacity: .4;
+            }
+
+            70% {
+                transform: scale(1.08);
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+        }
+
+    `;
+
+
+    document.head.appendChild(
+        memoryStyle
+    );
+
+
+    /* =====================================================
+       QUIZ
+    ===================================================== */
+
+    let quizAnswered =
+        false;
+
+
+    function answerQuiz(
+        button,
+        correct
+    ) {
+
+        if (quizAnswered) {
+            return;
+        }
+
+
+        const feedback =
+            document.getElementById(
+                "quiz-feedback"
+            );
+
+
+        if (correct) {
+
+            quizAnswered =
+                true;
+
+
+            button.classList.add(
+                "correct"
+            );
+
+
+            document
+                .querySelectorAll(
+                    ".quiz-option"
+                )
+                .forEach(
+                    option =>
+                        option.disabled =
+                            true
+                );
+
+
+            document.getElementById(
+                "feedback-character"
+            ).textContent =
+                "✦";
+
+
+            document.getElementById(
+                "feedback-title"
+            ).textContent =
+                "Correct! 🔥";
+
+
+            document.getElementById(
+                "feedback-message"
+            ).textContent =
+                "Exactly. scanf() needs &age so it knows where to store the input.";
+
+
+            feedback.classList.add(
+                "show"
+            );
+
+
+            updateProgress(100);
+
+
+            completeLesson();
+
+        } else {
+
+            button.classList.add(
+                "wrong"
+            );
+
+
+            document.getElementById(
+                "feedback-character"
+            ).textContent =
+                "↻";
+
+
+            document.getElementById(
+                "feedback-title"
+            ).textContent =
+                "Not quite.";
+
+
+            document.getElementById(
+                "feedback-message"
+            ).textContent =
+                "Remember: scanf() needs the address of the variable.";
+
+
+            feedback.classList.add(
+                "show"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    button.classList.remove(
+                        "wrong"
+                    );
+
+                },
+                900
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       COMPLETE LESSON
+    ===================================================== */
+
+    function completeLesson() {
+
+        if (
+            !completedLessons.includes(
+                LESSON_ID
+            )
+        ) {
+
+            completedLessons.push(
+                LESSON_ID
+            );
+
+
+            xp += LESSON_XP;
+
+
+            localStorage.setItem(
+                "craftc_xp",
+                xp
+            );
+
+
+            localStorage.setItem(
+                "craftc_completed",
+                JSON.stringify(
+                    completedLessons
+                )
+            );
+
+        }
+
+
+        updateXP();
+
+
+        document.getElementById(
+            "completion"
+        ).classList.add(
+            "show"
+        );
+
+
+        setTimeout(
+            () => {
+
+                document
+                    .getElementById(
+                        "completion"
+                    )
+                    .scrollIntoView({
+                        behavior:
+                            "smooth",
+                        block:
+                            "center"
+                    });
+
+            },
+            100
+        );
+
+    }
+
+
+    /* =====================================================
+       INITIALIZE
+    ===================================================== */
+
+    updateXP();
+
+
+    if (
+        completedLessons.includes(
+            LESSON_ID
+        )
+    ) {
+
+        updateProgress(100);
+
+
+        document.getElementById(
+            "completion"
+        ).classList.add(
+            "show"
+        );
+
+    }
+
+</script>
+
+
+</body>
+
+</html>
+

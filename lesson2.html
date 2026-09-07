@@ -1,0 +1,2660 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Lesson 2 — Your First C Program | CraftC</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           LESSON 2
+        ===================================================== */
+
+        .lesson-page {
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .lesson-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 30px;
+            margin-bottom: 35px;
+        }
+
+        .lesson-breadcrumb {
+            color: #687286;
+            font-size: 11px;
+            margin-bottom: 10px;
+        }
+
+        .lesson-breadcrumb a {
+            color: #9b8acb;
+        }
+
+        .lesson-header h1 {
+            font-size: clamp(32px, 5vw, 50px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        .lesson-header h1 span {
+            color: #a78bfa;
+        }
+
+        .lesson-subtitle {
+            max-width: 680px;
+            margin-top: 12px;
+            color: #7f899b;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .lesson-number-badge {
+            flex-shrink: 0;
+            padding: 8px 12px;
+            border: 1px solid #292f3e;
+            border-radius: 8px;
+            background: #111722;
+            color: #a78bfa;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
+
+        .lesson-progress {
+            margin-bottom: 35px;
+        }
+
+        .lesson-progress-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #667184;
+            font-size: 10px;
+        }
+
+        .lesson-progress-top strong {
+            color: #a78bfa;
+        }
+
+        .lesson-progress-track {
+            height: 5px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #1d2532;
+        }
+
+        .lesson-progress-fill {
+            width: 10%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(
+                90deg,
+                #7c3aed,
+                #a78bfa
+            );
+            transition: width .4s ease;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .lesson-hero {
+            position: relative;
+            min-height: 400px;
+            display: grid;
+            grid-template-columns: .9fr 1.1fr;
+            align-items: center;
+            gap: 45px;
+            padding: 40px;
+            overflow: hidden;
+            border: 1px solid #242d3c;
+            border-radius: 22px;
+            background:
+                radial-gradient(
+                    circle at 75% 45%,
+                    rgba(124,58,237,.13),
+                    transparent 36%
+                ),
+                #0e131d;
+            margin-bottom: 60px;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: .4;
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.025) 1px,
+                    transparent 1px
+                );
+            background-size: 35px 35px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-label {
+            color: #8f7bbf;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.8px;
+        }
+
+        .hero-content h2 {
+            margin-top: 10px;
+            font-size: 32px;
+            line-height: 1.15;
+            letter-spacing: -1px;
+        }
+
+        .hero-content h2 span {
+            color: #a78bfa;
+        }
+
+        .hero-content p {
+            margin-top: 15px;
+            color: #7c8799;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+
+        /* =====================================================
+           ANIME GUIDE
+        ===================================================== */
+
+        .anime-stage {
+            position: relative;
+            min-height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .anime-character {
+            width: 220px;
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px dashed #394354;
+            border-radius: 110px 110px 30px 30px;
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(139,92,246,.12),
+                    rgba(139,92,246,.02)
+                );
+            animation:
+                floatCharacter
+                3.5s
+                ease-in-out
+                infinite;
+        }
+
+        @keyframes floatCharacter {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+
+        }
+
+        .anime-face {
+            color: #c4b5fd;
+            font-size: 72px;
+            line-height: 1;
+        }
+
+        .anime-label {
+            margin-top: 20px;
+            color: #667184;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .anime-image {
+            max-width: 250px;
+            max-height: 330px;
+            object-fit: contain;
+            filter:
+                drop-shadow(
+                    0 25px 30px
+                    rgba(0,0,0,.35)
+                );
+            animation:
+                floatCharacter
+                3.5s
+                ease-in-out
+                infinite;
+        }
+
+
+        .speech {
+            position: absolute;
+            top: 5px;
+            right: 0;
+            max-width: 245px;
+            padding: 14px 16px;
+            border: 1px solid #30394a;
+            border-radius: 13px;
+            background: #151b27;
+            color: #bac2cf;
+            font-size: 11px;
+            line-height: 1.55;
+            box-shadow:
+                0 20px 45px
+                rgba(0,0,0,.25);
+        }
+
+
+        /* =====================================================
+           SECTION
+        ===================================================== */
+
+        .lesson-section {
+            margin-bottom: 65px;
+        }
+
+        .section-number {
+            color: #7f6ea9;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 10px;
+        }
+
+        .section-title {
+            margin-top: 7px;
+            font-size: 26px;
+            letter-spacing: -.8px;
+        }
+
+        .section-description {
+            max-width: 680px;
+            margin-top: 6px;
+            color: #707b8d;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           PROGRAM ANATOMY
+        ===================================================== */
+
+        .program-layout {
+            display: grid;
+            grid-template-columns: 1fr .8fr;
+            gap: 16px;
+            margin-top: 23px;
+        }
+
+        .code-window {
+            overflow: hidden;
+            border: 1px solid #252e3e;
+            border-radius: 15px;
+            background: #0b1018;
+        }
+
+        .window-top {
+            height: 38px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0 14px;
+            border-bottom: 1px solid #202838;
+            background: #101620;
+        }
+
+        .window-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #414b5d;
+        }
+
+        .window-title {
+            margin-left: 7px;
+            color: #606b7d;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 9px;
+        }
+
+        .code-body {
+            padding: 23px;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+            line-height: 2.25;
+        }
+
+        .code-line {
+            padding: 0 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition:
+                background .2s ease,
+                transform .2s ease;
+        }
+
+        .code-line:hover {
+            background: rgba(139,92,246,.08);
+            transform: translateX(3px);
+        }
+
+        .code-line.active {
+            background: rgba(139,92,246,.15);
+        }
+
+        .line-number {
+            display: inline-block;
+            width: 25px;
+            color: #394354;
+            user-select: none;
+        }
+
+        .keyword {
+            color: #c084fc;
+        }
+
+        .function {
+            color: #60a5fa;
+        }
+
+        .string {
+            color: #86efac;
+        }
+
+        .symbol {
+            color: #aab3c2;
+        }
+
+
+        /* =====================================================
+           EXPLANATION
+        ===================================================== */
+
+        .explanation-panel {
+            padding: 23px;
+            border: 1px solid #202838;
+            border-radius: 15px;
+            background: #0f141e;
+        }
+
+        .explanation-label {
+            color: #687286;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.3px;
+        }
+
+        .explanation-title {
+            margin-top: 14px;
+            color: #c4b5fd;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .explanation-text {
+            margin-top: 9px;
+            color: #7b8698;
+            font-size: 11px;
+            line-height: 1.75;
+        }
+
+        .explanation-tip {
+            margin-top: 18px;
+            padding: 12px;
+            border-left: 2px solid #7c3aed;
+            background: #111722;
+            color: #707b8d;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           CODE PARTS
+        ===================================================== */
+
+        .parts-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 23px;
+        }
+
+        .part-card {
+            padding: 19px;
+            border: 1px solid #202838;
+            border-radius: 13px;
+            background: #0f141e;
+            transition:
+                transform .2s ease,
+                border-color .2s ease;
+        }
+
+        .part-card:hover {
+            transform: translateY(-3px);
+            border-color: #343e51;
+        }
+
+        .part-number {
+            color: #7f6ea9;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 9px;
+        }
+
+        .part-code {
+            margin-top: 12px;
+            color: #c4b5fd;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 13px;
+        }
+
+        .part-card h3 {
+            margin-top: 10px;
+            font-size: 13px;
+        }
+
+        .part-card p {
+            margin-top: 5px;
+            color: #707b8d;
+            font-size: 10px;
+            line-height: 1.65;
+        }
+
+
+        /* =====================================================
+           COMPILER FLOW
+        ===================================================== */
+
+        .flow {
+            display: grid;
+            grid-template-columns:
+                repeat(4, 1fr);
+            gap: 8px;
+            align-items: center;
+            margin-top: 25px;
+        }
+
+        .flow-item {
+            min-height: 110px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border: 1px solid #252e3e;
+            border-radius: 13px;
+            background: #0f141e;
+            text-align: center;
+        }
+
+        .flow-number {
+            width: 25px;
+            height: 25px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: #181f2c;
+            color: #a78bfa;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 9px;
+        }
+
+        .flow-item strong {
+            margin-top: 10px;
+            font-size: 11px;
+        }
+
+        .flow-item span {
+            margin-top: 4px;
+            color: #687386;
+            font-size: 9px;
+        }
+
+        .flow-arrow {
+            color: #414b5d;
+            text-align: center;
+        }
+
+
+        /* =====================================================
+           INTERACTIVE BUILD
+        ===================================================== */
+
+        .builder {
+            padding: 25px;
+            border: 1px solid #252e3e;
+            border-radius: 17px;
+            background: #0f141e;
+        }
+
+        .builder-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .builder-top h3 {
+            font-size: 16px;
+        }
+
+        .builder-top p {
+            margin-top: 5px;
+            color: #707b8d;
+            font-size: 10px;
+        }
+
+        .builder-status {
+            padding: 7px 10px;
+            border: 1px solid #293243;
+            border-radius: 7px;
+            color: #687386;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 9px;
+        }
+
+        .builder-code {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 25px;
+        }
+
+        .code-piece {
+            padding: 10px 13px;
+            border: 1px solid #30394a;
+            border-radius: 8px;
+            background: #111722;
+            color: #9da7b7;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            cursor: pointer;
+            transition:
+                transform .2s ease,
+                border-color .2s ease,
+                background .2s ease;
+        }
+
+        .code-piece:hover {
+            transform: translateY(-2px);
+            border-color: #6d5a9e;
+        }
+
+        .code-piece.selected {
+            border-color: #8b5cf6;
+            background: rgba(139,92,246,.12);
+            color: #c4b5fd;
+        }
+
+        .builder-result {
+            min-height: 50px;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px dashed #293243;
+            border-radius: 10px;
+            color: #687386;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 10px;
+        }
+
+        .builder-result.success {
+            border-style: solid;
+            border-color: rgba(74,222,128,.35);
+            background: rgba(74,222,128,.05);
+            color: #86efac;
+        }
+
+        .build-button {
+            margin-top: 15px;
+            padding: 11px 16px;
+            border: none;
+            border-radius: 8px;
+            background: #7c3aed;
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           QUIZ
+        ===================================================== */
+
+        .quiz-card {
+            padding: 28px;
+            border: 1px solid #252e3e;
+            border-radius: 18px;
+            background:
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(124,58,237,.08),
+                    transparent 30%
+                ),
+                #0f141e;
+        }
+
+        .quiz-number {
+            color: #8b7ab5;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 9px;
+        }
+
+        .quiz-question {
+            margin-top: 10px;
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .quiz-option {
+            min-height: 52px;
+            padding: 0 15px;
+            border: 1px solid #293243;
+            border-radius: 10px;
+            background: #111722;
+            color: #9ba5b5;
+            text-align: left;
+            font-size: 11px;
+            cursor: pointer;
+            transition:
+                background .2s ease,
+                border .2s ease;
+        }
+
+        .quiz-option:hover {
+            border-color: #465167;
+            background: #151c29;
+        }
+
+        .quiz-option.correct {
+            border-color: rgba(74,222,128,.5);
+            background: rgba(74,222,128,.08);
+            color: #86efac;
+        }
+
+        .quiz-option.wrong {
+            border-color: rgba(248,113,113,.5);
+            background: rgba(248,113,113,.08);
+            color: #fca5a5;
+        }
+
+        .quiz-feedback {
+            display: none;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #252e3e;
+            border-radius: 12px;
+            background: #111722;
+        }
+
+        .quiz-feedback.show {
+            display: flex;
+        }
+
+        .feedback-character {
+            width: 50px;
+            height: 50px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 11px;
+            background: #181f2c;
+            color: #c4b5fd;
+            font-size: 21px;
+        }
+
+        .feedback-text strong {
+            display: block;
+            font-size: 12px;
+        }
+
+        .feedback-text span {
+            display: block;
+            margin-top: 3px;
+            color: #6f7a8c;
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           COMPLETION
+        ===================================================== */
+
+        .completion {
+            display: none;
+            padding: 45px 25px;
+            margin-top: 30px;
+            border: 1px solid rgba(139,92,246,.3);
+            border-radius: 18px;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(124,58,237,.13),
+                    transparent 60%
+                );
+            text-align: center;
+        }
+
+        .completion.show {
+            display: block;
+            animation:
+                completionIn
+                .5s
+                ease;
+        }
+
+        @keyframes completionIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .completion-icon {
+            font-size: 42px;
+        }
+
+        .completion h2 {
+            margin-top: 12px;
+            font-size: 26px;
+        }
+
+        .completion p {
+            margin-top: 7px;
+            color: #747f91;
+            font-size: 12px;
+        }
+
+        .xp-reward {
+            display: inline-flex;
+            margin-top: 18px;
+            padding: 7px 12px;
+            border: 1px solid rgba(139,92,246,.25);
+            border-radius: 999px;
+            background: rgba(139,92,246,.08);
+            color: #c4b5fd;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .next-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 22px;
+            padding: 12px 17px;
+            border-radius: 9px;
+            background: #7c3aed;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .lesson-hero {
+                grid-template-columns: 1fr;
+            }
+
+            .program-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .parts-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .flow {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .lesson-header {
+                flex-direction: column;
+            }
+
+            .lesson-header h1 {
+                font-size: 35px;
+            }
+
+            .lesson-hero {
+                padding: 25px 18px;
+            }
+
+            .anime-character {
+                width: 180px;
+                height: 240px;
+            }
+
+            .speech {
+                max-width: 185px;
+            }
+
+            .parts-grid,
+            .flow {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .builder {
+                padding: 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                C
+            </div>
+
+            <div class="brand-text">
+
+                <h1>
+                    Craft<span>C</span>
+                </h1>
+
+                <p>
+                    Learn C visually
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="index.html"
+                class="nav-link"
+            >
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+            </a>
+
+
+            <a
+                href="lesson1.html"
+                class="nav-link"
+            >
+                <span class="nav-icon">
+                    ✓
+                </span>
+
+                <span>
+                    Lesson 01
+                </span>
+            </a>
+
+
+            <a
+                href="#lesson"
+                class="nav-link active"
+            >
+                <span class="nav-icon">
+                    ◈
+                </span>
+
+                <span>
+                    Lesson 02
+                </span>
+            </a>
+
+
+            <a
+                href="#quiz"
+                class="nav-link"
+            >
+                <span class="nav-icon">
+                    ⚡
+                </span>
+
+                <span>
+                    Practice
+                </span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="level-card">
+
+                <div class="level-row">
+
+                    <span id="level-name">
+                        Level 1
+                    </span>
+
+                    <strong id="xp-value">
+                        0 XP
+                    </strong>
+
+                </div>
+
+
+                <div class="xp-track">
+
+                    <div
+                        class="xp-fill"
+                        id="xp-fill"
+                    ></div>
+
+                </div>
+
+
+                <p id="xp-next">
+                    200 XP to next level
+                </p>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <div
+            class="lesson-page"
+            id="lesson"
+        >
+
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+
+            <header class="lesson-header">
+
+                <div>
+
+                    <div class="lesson-breadcrumb">
+
+                        <a href="index.html">
+                            Dashboard
+                        </a>
+
+                        <span>
+                            /
+                        </span>
+
+                        C Fundamentals
+
+                        <span>
+                            /
+                        </span>
+
+                        Lesson 02
+
+                    </div>
+
+
+                    <h1>
+
+                        Your First
+                        <span>C Program</span>
+
+                    </h1>
+
+
+                    <p class="lesson-subtitle">
+
+                        You've met C. Now let's take apart
+                        a real C program and understand what
+                        every important piece actually does.
+
+                    </p>
+
+                </div>
+
+
+                <div class="lesson-number-badge">
+
+                    LESSON 02
+
+                </div>
+
+            </header>
+
+
+            <!-- =================================================
+                 PROGRESS
+            ================================================== -->
+
+            <div class="lesson-progress">
+
+                <div class="lesson-progress-top">
+
+                    <span>
+                        Lesson progress
+                    </span>
+
+                    <strong id="progress-text">
+                        10%
+                    </strong>
+
+                </div>
+
+
+                <div class="lesson-progress-track">
+
+                    <div
+                        class="lesson-progress-fill"
+                        id="progress-fill"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 HERO
+            ================================================== -->
+
+            <section class="lesson-hero">
+
+                <div class="hero-grid"></div>
+
+
+                <div class="hero-content">
+
+                    <span class="hero-label">
+
+                        CHAPTER 01 • YOUR FIRST PROGRAM
+
+                    </span>
+
+
+                    <h2>
+
+                        Don't memorize the code.
+
+                        <span>
+                            Understand it.
+                        </span>
+
+                    </h2>
+
+
+                    <p>
+
+                        A beginner usually sees a C program
+                        as a scary collection of symbols.
+
+                        We're going to break it into pieces
+                        so every line has a reason.
+
+                    </p>
+
+                </div>
+
+
+                <div class="anime-stage">
+
+                    <!--
+                        REPLACE WITH YOUR IMAGE:-->
+
+                        
+                    
+
+                    <div class="anime-character">
+
+                        <div class="anime-face">
+                            <img
+                            src="anime-guide.png"
+                            class="anime-image"
+                            alt="Anime guide"
+                        >
+                        </div>
+
+                        <div class="anime-label">
+                           MARIN
+                        </div>
+
+                    </div>
+
+
+                    <div class="speech">
+
+                        This time we're going
+                        inside the code. 🔍
+
+                        Click each line and I'll
+                        explain what it does.
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 1
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    01 / ANATOMY
+                </span>
+
+
+                <h2 class="section-title">
+                    Meet your first C program
+                </h2>
+
+
+                <p class="section-description">
+
+                    Click any line of code. The panel on
+                    the right will explain it.
+
+                </p>
+
+
+                <div class="program-layout">
+
+
+                    <!-- CODE -->
+
+                    <div class="code-window">
+
+                        <div class="window-top">
+
+                            <span class="window-dot"></span>
+                            <span class="window-dot"></span>
+                            <span class="window-dot"></span>
+
+                            <span class="window-title">
+                                hello.c
+                            </span>
+
+                        </div>
+
+
+                        <div class="code-body">
+
+
+                            <div
+                                class="code-line"
+                                onclick="explainLine(1)"
+                                id="code-1"
+                            >
+
+                                <span class="line-number">
+                                    1
+                                </span>
+
+                                <span class="keyword">
+                                    #include
+                                </span>
+
+                                <span class="symbol">
+                                    &lt;stdio.h&gt;
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="code-line"
+                                onclick="explainLine(2)"
+                                id="code-2"
+                            >
+
+                                <span class="line-number">
+                                    2
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="code-line"
+                                onclick="explainLine(3)"
+                                id="code-3"
+                            >
+
+                                <span class="line-number">
+                                    3
+                                </span>
+
+                                <span class="keyword">
+                                    int
+                                </span>
+
+                                <span>
+                                    main
+                                </span>
+
+                                <span class="symbol">
+                                    ()
+                                </span>
+
+                                <span class="symbol">
+                                    {
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="code-line"
+                                onclick="explainLine(4)"
+                                id="code-4"
+                            >
+
+                                <span class="line-number">
+                                    4
+                                </span>
+
+                                <span>
+                                    printf
+                                </span>
+
+                                <span class="symbol">
+                                    (
+                                </span>
+
+                                <span class="string">
+                                    "Hello, C!"
+                                </span>
+
+                                <span class="symbol">
+                                    );
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="code-line"
+                                onclick="explainLine(5)"
+                                id="code-5"
+                            >
+
+                                <span class="line-number">
+                                    5
+                                </span>
+
+                                <span class="keyword">
+                                    return
+                                </span>
+
+                                <span>
+                                    0;
+                                </span>
+
+                            </div>
+
+
+                            <div
+                                class="code-line"
+                                onclick="explainLine(6)"
+                                id="code-6"
+                            >
+
+                                <span class="line-number">
+                                    6
+                                </span>
+
+                                <span class="symbol">
+                                    }
+                                </span>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EXPLANATION -->
+
+                    <div class="explanation-panel">
+
+                        <span class="explanation-label">
+                            CODE EXPLORER
+                        </span>
+
+
+                        <div
+                            class="explanation-title"
+                            id="explanation-title"
+                        >
+
+                            Click a line
+
+                        </div>
+
+
+                        <p
+                            class="explanation-text"
+                            id="explanation-text"
+                        >
+
+                            Select a line on the left to
+                            understand what it does.
+
+                        </p>
+
+
+                        <div
+                            class="explanation-tip"
+                            id="explanation-tip"
+                        >
+
+                            💡 Start with line 1.
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 2
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    02 / BREAK IT DOWN
+                </span>
+
+
+                <h2 class="section-title">
+                    Four pieces you need to know
+                </h2>
+
+
+                <p class="section-description">
+
+                    You don't need to understand every
+                    detail of C yet. These four concepts
+                    are enough for your first program.
+
+                </p>
+
+
+                <div class="parts-grid">
+
+
+                    <article class="part-card">
+
+                        <span class="part-number">
+                            01
+                        </span>
+
+                        <div class="part-code">
+                            #include
+                        </div>
+
+                        <h3>
+                            Header
+                        </h3>
+
+                        <p>
+                            Gives your program access to
+                            declarations provided by libraries.
+                        </p>
+
+                    </article>
+
+
+                    <article class="part-card">
+
+                        <span class="part-number">
+                            02
+                        </span>
+
+                        <div class="part-code">
+                            main()
+                        </div>
+
+                        <h3>
+                            Entry point
+                        </h3>
+
+                        <p>
+                            Execution of a normal C program
+                            begins in the main function.
+                        </p>
+
+                    </article>
+
+
+                    <article class="part-card">
+
+                        <span class="part-number">
+                            03
+                        </span>
+
+                        <div class="part-code">
+                            printf()
+                        </div>
+
+                        <h3>
+                            Output
+                        </h3>
+
+                        <p>
+                            Used to print formatted output
+                            to the standard output stream.
+                        </p>
+
+                    </article>
+
+
+                    <article class="part-card">
+
+                        <span class="part-number">
+                            04
+                        </span>
+
+                        <div class="part-code">
+                            return 0;
+                        </div>
+
+                        <h3>
+                            Finish
+                        </h3>
+
+                        <p>
+                            Returns a status value from
+                            main to indicate successful completion.
+                        </p>
+
+                    </article>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 3
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    03 / UNDER THE HOOD
+                </span>
+
+
+                <h2 class="section-title">
+                    What happens before you see the output?
+                </h2>
+
+
+                <p class="section-description">
+
+                    Your C source code doesn't magically
+                    become a running program. It goes through
+                    several stages.
+
+                </p>
+
+
+                <div class="flow">
+
+
+                    <div class="flow-item">
+
+                        <div class="flow-number">
+                            1
+                        </div>
+
+                        <strong>
+                            Source Code
+                        </strong>
+
+                        <span>
+                            hello.c
+                        </span>
+
+                    </div>
+
+
+                    <div class="flow-item">
+
+                        <div class="flow-number">
+                            2
+                        </div>
+
+                        <strong>
+                            Compiler
+                        </strong>
+
+                        <span>
+                            translates code
+                        </span>
+
+                    </div>
+
+
+                    <div class="flow-item">
+
+                        <div class="flow-number">
+                            3
+                        </div>
+
+                        <strong>
+                            Executable
+                        </strong>
+
+                        <span>
+                            machine code
+                        </span>
+
+                    </div>
+
+
+                    <div class="flow-item">
+
+                        <div class="flow-number">
+                            4
+                        </div>
+
+                        <strong>
+                            Run
+                        </strong>
+
+                        <span>
+                            program executes
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 4
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    04 / BUILD IT
+                </span>
+
+
+                <h2 class="section-title">
+                    Build a C program
+                </h2>
+
+
+                <p class="section-description">
+
+                    Select the pieces below and assemble
+                    the correct structure.
+
+                </p>
+
+
+                <div class="builder">
+
+
+                    <div class="builder-top">
+
+                        <div>
+
+                            <h3>
+                                Assemble the program
+                            </h3>
+
+                            <p>
+                                Select these in the correct order.
+                            </p>
+
+                        </div>
+
+
+                        <div
+                            class="builder-status"
+                            id="builder-status"
+                        >
+                            0 / 5
+                        </div>
+
+                    </div>
+
+
+                    <div class="builder-code">
+
+
+                        <button
+                            class="code-piece"
+                            data-order="1"
+                            onclick="selectPiece(this)"
+                        >
+                            #include &lt;stdio.h&gt;
+                        </button>
+
+
+                        <button
+                            class="code-piece"
+                            data-order="3"
+                            onclick="selectPiece(this)"
+                        >
+                            int main() {
+                        </button>
+
+
+                        <button
+                            class="code-piece"
+                            data-order="4"
+                            onclick="selectPiece(this)"
+                        >
+                            printf("Hello, C!");
+                        </button>
+
+
+                        <button
+                            class="code-piece"
+                            data-order="5"
+                            onclick="selectPiece(this)"
+                        >
+                            return 0;
+                        </button>
+
+
+                        <button
+                            class="code-piece"
+                            data-order="2"
+                            onclick="selectPiece(this)"
+                        >
+                            /* blank line */
+                        </button>
+
+
+                    </div>
+
+
+                    <div
+                        class="builder-result"
+                        id="builder-result"
+                    >
+
+                        Choose the first piece.
+
+                    </div>
+
+
+                    <button
+                        class="build-button"
+                        onclick="resetBuilder()"
+                    >
+
+                        Reset
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 QUIZ
+            ================================================== -->
+
+            <section
+                class="lesson-section"
+                id="quiz"
+            >
+
+                <span class="section-number">
+                    05 / CHECKPOINT
+                </span>
+
+
+                <h2 class="section-title">
+                    Quick check
+                </h2>
+
+
+                <p class="section-description">
+
+                    One correct answer completes this lesson.
+
+                </p>
+
+
+                <div class="quiz-card">
+
+                    <span class="quiz-number">
+                        QUESTION 01
+                    </span>
+
+
+                    <div class="quiz-question">
+
+                        Which function is the starting point
+                        of a normal C program?
+
+                    </div>
+
+
+                    <div class="quiz-options">
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, false)"
+                        >
+
+                            A. printf()
+
+                        </button>
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, true)"
+                        >
+
+                            B. main()
+
+                        </button>
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, false)"
+                        >
+
+                            C. start()
+
+                        </button>
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, false)"
+                        >
+
+                            D. run()
+
+                        </button>
+
+
+                    </div>
+
+
+                    <div
+                        class="quiz-feedback"
+                        id="quiz-feedback"
+                    >
+
+                        <div
+                            class="feedback-character"
+                            id="feedback-character"
+                        >
+                            ✦
+                        </div>
+
+
+                        <div class="feedback-text">
+
+                            <strong
+                                id="feedback-title"
+                            >
+                                Correct!
+                            </strong>
+
+                            <span
+                                id="feedback-message"
+                            >
+                                Program execution begins from main().
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- COMPLETION -->
+
+                <div
+                    class="completion"
+                    id="completion"
+                >
+
+                    <div class="completion-icon">
+                        <img
+                            src="anime-celebrate.png"
+                            class="anime-image"
+                            alt="Anime guide"
+                        >
+                    </div>
+
+
+                    <h2>
+                        Lesson 2 Complete!
+                    </h2>
+
+
+                    <p>
+                        You now know the basic anatomy
+                        of a C program.
+                    </p>
+
+
+                    <div class="xp-reward">
+                        +50 XP
+                    </div>
+
+
+                    <br>
+
+
+                    <a
+                        href="lesson3.html"
+                        class="next-button"
+                    >
+
+                        Continue to Lesson 3
+                        →
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+
+        <footer class="footer">
+
+            <div>
+
+               <strong>
+                    DEVELOPED<span>  By USR-KSHITIJ</span>
+                </strong>
+
+
+                <span>
+                    — Learn C visually.
+                </span>
+
+            </div>
+
+
+            <div>
+                Lesson 02
+            </div>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+<script>
+
+
+    /* =====================================================
+       LESSON DATA
+    ===================================================== */
+
+    const LESSON_ID = "lesson2";
+
+    const LESSON_XP = 50;
+
+
+    /* =====================================================
+       XP
+    ===================================================== */
+
+    let xp =
+        Number(
+            localStorage.getItem(
+                "craftc_xp"
+            )
+        ) || 0;
+
+
+    let completedLessons =
+        JSON.parse(
+            localStorage.getItem(
+                "craftc_completed"
+            )
+        ) || [];
+
+
+    function updateXP() {
+
+        const level =
+            Math.floor(
+                xp / 200
+            ) + 1;
+
+
+        const currentXP =
+            xp % 200;
+
+
+        const percentage =
+            Math.min(
+                (currentXP / 200) * 100,
+                100
+            );
+
+
+        document.getElementById(
+            "level-name"
+        ).textContent =
+            "Level " + level;
+
+
+        document.getElementById(
+            "xp-value"
+        ).textContent =
+            xp + " XP";
+
+
+        document.getElementById(
+            "xp-fill"
+        ).style.width =
+            percentage + "%";
+
+
+        document.getElementById(
+            "xp-next"
+        ).textContent =
+            (200 - currentXP) +
+            " XP to next level";
+
+    }
+
+
+    /* =====================================================
+       CODE EXPLANATION
+    ===================================================== */
+
+    const explanations = {
+
+        1: {
+
+            title:
+                "#include <stdio.h>",
+
+            text:
+                "This tells the preprocessor to include the declarations from the standard input/output header. We need it here because printf() is declared there.",
+
+            tip:
+                "💡 Think of a header as a toolbox of declarations your program can use."
+
+        },
+
+
+        2: {
+
+            title:
+                "Blank line",
+
+            text:
+                "This line does nothing. It simply makes the program easier for humans to read.",
+
+            tip:
+                "💡 Computers don't care about this blank line. Humans do."
+
+        },
+
+
+        3: {
+
+            title:
+                "int main() {",
+
+            text:
+                "main() is the function where execution of a normal C program begins. The opening { starts the body of the function.",
+
+            tip:
+                "💡 When your program starts, think: 'Go to main().'"
+
+        },
+
+
+        4: {
+
+            title:
+                'printf("Hello, C!");',
+
+            text:
+                "printf() sends formatted output to the standard output stream. Here it prints the text Hello, C!.",
+
+            tip:
+                "💡 The text inside quotes is a string literal."
+
+        },
+
+
+        5: {
+
+            title:
+                "return 0;",
+
+            text:
+                "This ends main() and returns the value 0 to the environment that started the program. By convention, 0 indicates successful completion.",
+
+            tip:
+                "💡 Think of 0 here as 'everything finished successfully.'"
+
+        },
+
+
+        6: {
+
+            title:
+                "}",
+
+            text:
+                "This closing brace marks the end of the main() function body.",
+
+            tip:
+                "💡 Every opening { needs a matching }."
+
+        }
+
+    };
+
+
+    function explainLine(number) {
+
+        document
+            .querySelectorAll(".code-line")
+            .forEach(
+                line =>
+                    line.classList.remove(
+                        "active"
+                    )
+            );
+
+
+        document
+            .getElementById(
+                "code-" + number
+            )
+            .classList.add(
+                "active"
+            );
+
+
+        const data =
+            explanations[number];
+
+
+        document.getElementById(
+            "explanation-title"
+        ).textContent =
+            data.title;
+
+
+        document.getElementById(
+            "explanation-text"
+        ).textContent =
+            data.text;
+
+
+        document.getElementById(
+            "explanation-tip"
+        ).textContent =
+            data.tip;
+
+    }
+
+
+    /* =====================================================
+       PROGRAM BUILDER
+    ===================================================== */
+
+    let builderOrder = [];
+
+    let builderLocked = false;
+
+
+    function selectPiece(button) {
+
+        if (builderLocked) {
+            return;
+        }
+
+
+        if (
+            button.classList.contains(
+                "selected"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        const expected =
+            builderOrder.length + 1;
+
+
+        const selectedOrder =
+            Number(
+                button.dataset.order
+            );
+
+
+        if (
+            selectedOrder !== expected
+        ) {
+
+            const result =
+                document.getElementById(
+                    "builder-result"
+                );
+
+
+            result.classList.remove(
+                "success"
+            );
+
+
+            result.textContent =
+                "Not quite. Think about what the compiler needs first.";
+
+
+            button.animate(
+                [
+                    {
+                        transform:
+                            "translateX(0)"
+                    },
+                    {
+                        transform:
+                            "translateX(-5px)"
+                    },
+                    {
+                        transform:
+                            "translateX(5px)"
+                    },
+                    {
+                        transform:
+                            "translateX(0)"
+                    }
+                ],
+                {
+                    duration: 250
+                }
+            );
+
+
+            return;
+
+        }
+
+
+        builderOrder.push(
+            selectedOrder
+        );
+
+
+        button.classList.add(
+            "selected"
+        );
+
+
+        document.getElementById(
+            "builder-status"
+        ).textContent =
+            builderOrder.length +
+            " / 5";
+
+
+        const result =
+            document.getElementById(
+                "builder-result"
+            );
+
+
+        result.textContent =
+            "Good. Keep going...";
+
+
+        if (
+            builderOrder.length === 5
+        ) {
+
+            builderLocked = true;
+
+
+            result.classList.add(
+                "success"
+            );
+
+
+            result.textContent =
+                "✓ Correct! You assembled the program structure.";
+
+        }
+
+    }
+
+
+    function resetBuilder() {
+
+        builderOrder = [];
+
+        builderLocked = false;
+
+
+        document
+            .querySelectorAll(
+                ".code-piece"
+            )
+            .forEach(
+                piece =>
+                    piece.classList.remove(
+                        "selected"
+                    )
+            );
+
+
+        document.getElementById(
+            "builder-status"
+        ).textContent =
+            "0 / 5";
+
+
+        const result =
+            document.getElementById(
+                "builder-result"
+            );
+
+
+        result.classList.remove(
+            "success"
+        );
+
+
+        result.textContent =
+            "Choose the first piece.";
+
+    }
+
+
+    /* =====================================================
+       QUIZ
+    ===================================================== */
+
+    let quizAnswered = false;
+
+
+    function answerQuiz(
+        button,
+        correct
+    ) {
+
+        if (quizAnswered) {
+            return;
+        }
+
+
+        if (correct) {
+
+            quizAnswered = true;
+
+
+            button.classList.add(
+                "correct"
+            );
+
+
+            document
+                .querySelectorAll(
+                    ".quiz-option"
+                )
+                .forEach(
+                    option =>
+                        option.disabled = true
+                );
+
+
+            document.getElementById(
+                "feedback-character"
+            ).textContent =
+                "✦";
+
+
+            document.getElementById(
+                "feedback-title"
+            ).textContent =
+                "Correct! 🔥";
+
+
+            document.getElementById(
+                "feedback-message"
+            ).textContent =
+                "main() is the entry point of a normal C program.";
+
+
+            document.getElementById(
+                "quiz-feedback"
+            ).classList.add(
+                "show"
+            );
+
+
+            completeLesson();
+
+        } else {
+
+            button.classList.add(
+                "wrong"
+            );
+
+
+            document.getElementById(
+                "feedback-character"
+            ).textContent =
+                "↻";
+
+
+            document.getElementById(
+                "feedback-title"
+            ).textContent =
+                "Nope.";
+
+            document.getElementById(
+                "feedback-message"
+            ).textContent =
+                "Think about which function contains the main body of your program.";
+
+
+            document.getElementById(
+                "quiz-feedback"
+            ).classList.add(
+                "show"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    button.classList.remove(
+                        "wrong"
+                    );
+
+                },
+                900
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       COMPLETE
+    ===================================================== */
+
+    function completeLesson() {
+
+        if (
+            !completedLessons.includes(
+                LESSON_ID
+            )
+        ) {
+
+            completedLessons.push(
+                LESSON_ID
+            );
+
+
+            xp += LESSON_XP;
+
+
+            localStorage.setItem(
+                "craftc_xp",
+                xp
+            );
+
+
+            localStorage.setItem(
+                "craftc_completed",
+                JSON.stringify(
+                    completedLessons
+                )
+            );
+
+        }
+
+
+        updateXP();
+
+
+        document.getElementById(
+            "progress-fill"
+        ).style.width =
+            "100%";
+
+
+        document.getElementById(
+            "progress-text"
+        ).textContent =
+            "100%";
+
+
+        document.getElementById(
+            "completion"
+        ).classList.add(
+            "show"
+        );
+
+
+        setTimeout(
+            () => {
+
+                document
+                    .getElementById(
+                        "completion"
+                    )
+                    .scrollIntoView({
+                        behavior:
+                            "smooth",
+                        block:
+                            "center"
+                    });
+
+            },
+            100
+        );
+
+    }
+
+
+    /* =====================================================
+       INITIALIZE
+    ===================================================== */
+
+    updateXP();
+
+
+    if (
+        completedLessons.includes(
+            LESSON_ID
+        )
+    ) {
+
+        document.getElementById(
+            "progress-fill"
+        ).style.width =
+            "100%";
+
+
+        document.getElementById(
+            "progress-text"
+        ).textContent =
+            "100%";
+
+
+        document.getElementById(
+            "completion"
+        ).classList.add(
+            "show"
+        );
+
+    }
+
+
+</script>
+
+
+</body>
+
+</html>
+

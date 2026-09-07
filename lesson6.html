@@ -1,0 +1,2594 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Lesson 6 — Decisions | CraftC</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           LESSON 6
+        ===================================================== */
+
+        .lesson-page {
+            max-width: 1150px;
+            margin: 0 auto;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .lesson-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 30px;
+            margin-bottom: 35px;
+        }
+
+        .lesson-breadcrumb {
+            color: #687286;
+            font-size: 11px;
+            margin-bottom: 10px;
+        }
+
+        .lesson-breadcrumb a {
+            color: #9b8acb;
+        }
+
+        .lesson-header h1 {
+            font-size: clamp(32px, 5vw, 50px);
+            line-height: 1.05;
+            letter-spacing: -2px;
+        }
+
+        .lesson-header h1 span {
+            color: #a78bfa;
+        }
+
+        .lesson-subtitle {
+            max-width: 720px;
+            margin-top: 12px;
+            color: #7f899b;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .lesson-number-badge {
+            flex-shrink: 0;
+            padding: 8px 12px;
+            border: 1px solid #292f3e;
+            border-radius: 8px;
+            background: #111722;
+            color: #a78bfa;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           PROGRESS
+        ===================================================== */
+
+        .lesson-progress {
+            margin-bottom: 35px;
+        }
+
+        .lesson-progress-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            color: #667184;
+            font-size: 10px;
+        }
+
+        .lesson-progress-top strong {
+            color: #a78bfa;
+        }
+
+        .lesson-progress-track {
+            height: 5px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #1d2532;
+        }
+
+        .lesson-progress-fill {
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(
+                90deg,
+                #7c3aed,
+                #a78bfa
+            );
+            transition: width .5s ease;
+        }
+
+
+        /* =====================================================
+           HERO
+        ===================================================== */
+
+        .lesson-hero {
+            position: relative;
+            min-height: 390px;
+            display: grid;
+            grid-template-columns: 1fr .9fr;
+            align-items: center;
+            gap: 45px;
+            padding: 40px;
+            overflow: hidden;
+            border: 1px solid #242d3c;
+            border-radius: 22px;
+            background:
+                radial-gradient(
+                    circle at 80% 45%,
+                    rgba(124,58,237,.13),
+                    transparent 35%
+                ),
+                #0e131d;
+            margin-bottom: 60px;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: .35;
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.025) 1px,
+                    transparent 1px
+                );
+            background-size: 35px 35px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-label {
+            color: #8f7bbf;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.8px;
+        }
+
+        .hero-content h2 {
+            margin-top: 10px;
+            font-size: 32px;
+            line-height: 1.15;
+            letter-spacing: -1px;
+        }
+
+        .hero-content h2 span {
+            color: #a78bfa;
+        }
+
+        .hero-content p {
+            margin-top: 15px;
+            color: #7c8799;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+
+        /* =====================================================
+           ANIME GUIDE
+        ===================================================== */
+
+        .anime-stage {
+            position: relative;
+            min-height: 290px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        /*
+            Replace this block with your own anime image later.
+
+            <img
+                src="images/decision-guide.png"
+                class="anime-image"
+                alt="Anime guide"
+            >
+        */
+
+        .anime-character {
+            width: 210px;
+            height: 265px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 1px dashed #394354;
+            border-radius: 105px 105px 28px 28px;
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(139,92,246,.12),
+                    rgba(139,92,246,.02)
+                );
+            animation:
+                floatCharacter
+                3.5s
+                ease-in-out
+                infinite;
+        }
+
+        @keyframes floatCharacter {
+
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+
+        }
+
+        .anime-face {
+            color: #c4b5fd;
+            font-size: 70px;
+            line-height: 1;
+        }
+
+        .anime-label {
+            margin-top: 20px;
+            color: #667184;
+            font-size: 8px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        .anime-image {
+            max-width: 250px;
+            max-height: 320px;
+            object-fit: contain;
+            filter:
+                drop-shadow(
+                    0 25px 30px
+                    rgba(0,0,0,.35)
+                );
+            animation:
+                floatCharacter
+                3.5s
+                ease-in-out
+                infinite;
+        }
+
+        .speech {
+            position: absolute;
+            top: 0;
+            right: -5px;
+            max-width: 235px;
+            padding: 14px 16px;
+            border: 1px solid #30394a;
+            border-radius: 13px;
+            background: #151b27;
+            color: #bac2cf;
+            font-size: 11px;
+            line-height: 1.55;
+            box-shadow:
+                0 20px 45px
+                rgba(0,0,0,.25);
+        }
+
+
+        /* =====================================================
+           SECTIONS
+        ===================================================== */
+
+        .lesson-section {
+            margin-bottom: 65px;
+        }
+
+        .section-number {
+            color: #7f6ea9;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 10px;
+        }
+
+        .section-title {
+            margin-top: 7px;
+            font-size: 26px;
+            letter-spacing: -.8px;
+        }
+
+        .section-description {
+            max-width: 720px;
+            margin-top: 6px;
+            color: #707b8d;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           DECISION IDEA
+        ===================================================== */
+
+        .decision-card {
+            margin-top: 24px;
+            padding: 28px;
+            border: 1px solid #252e3e;
+            border-radius: 18px;
+            background: #0f141e;
+        }
+
+        .decision-question {
+            color: #697487;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1.3px;
+        }
+
+        .decision-question-text {
+            margin-top: 10px;
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .decision-example {
+            margin-top: 18px;
+            padding: 18px;
+            border-radius: 11px;
+            background: #090e15;
+            border: 1px solid #222b3a;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+            line-height: 2;
+        }
+
+        .keyword {
+            color: #c084fc;
+        }
+
+        .condition {
+            color: #60a5fa;
+        }
+
+        .string {
+            color: #86efac;
+        }
+
+        .comment {
+            color: #5f6b7d;
+        }
+
+        .operator {
+            color: #fbbf24;
+        }
+
+
+        /* =====================================================
+           IF FLOW
+        ===================================================== */
+
+        .if-flow {
+            margin-top: 25px;
+            padding: 28px;
+            border: 1px solid #252e3e;
+            border-radius: 18px;
+            background: #0e131d;
+        }
+
+        .if-flow-title {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .if-flow-subtitle {
+            margin-top: 5px;
+            color: #687386;
+            font-size: 10px;
+        }
+
+        .decision-tree {
+            display: grid;
+            grid-template-columns:
+                1fr 50px 1fr;
+            align-items: center;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .tree-node {
+            min-height: 125px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 18px;
+            border: 1px solid #293243;
+            border-radius: 13px;
+            background: #111722;
+            text-align: center;
+        }
+
+        .tree-node.start {
+            border-top: 2px solid #60a5fa;
+        }
+
+        .tree-node.end {
+            border-top: 2px solid #a78bfa;
+        }
+
+        .tree-icon {
+            font-size: 28px;
+        }
+
+        .tree-node strong {
+            margin-top: 9px;
+            color: #b8c0cd;
+            font-size: 11px;
+        }
+
+        .tree-node span {
+            margin-top: 6px;
+            color: #687386;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 9px;
+        }
+
+        .tree-arrow {
+            color: #697487;
+            font-size: 20px;
+            text-align: center;
+        }
+
+
+        /* =====================================================
+           INTERACTIVE DECISION
+        ===================================================== */
+
+        .interactive-card {
+            margin-top: 25px;
+            padding: 28px;
+            border: 1px solid #252e3e;
+            border-radius: 18px;
+            background:
+                radial-gradient(
+                    circle at 90% 0%,
+                    rgba(124,58,237,.08),
+                    transparent 30%
+                ),
+                #0f141e;
+        }
+
+        .interactive-layout {
+            display: grid;
+            grid-template-columns:
+                .8fr 1.2fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .interactive-code {
+            padding: 20px;
+            border: 1px solid #222b3a;
+            border-radius: 11px;
+            background: #090e15;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 11px;
+            line-height: 2;
+        }
+
+        .interactive-control {
+            padding: 20px;
+            border: 1px solid #252e3e;
+            border-radius: 11px;
+            background: #111722;
+        }
+
+        .interactive-control label {
+            display: block;
+            margin-bottom: 9px;
+            color: #697487;
+            font-size: 9px;
+        }
+
+        .number-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #303a4b;
+            border-radius: 8px;
+            outline: none;
+            background: #0a0f16;
+            color: #d1d5db;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+        }
+
+        .number-input:focus {
+            border-color: #6b54a0;
+        }
+
+        .run-button {
+            width: 100%;
+            margin-top: 10px;
+            padding: 11px;
+            border: 0;
+            border-radius: 8px;
+            background: #7c3aed;
+            color: white;
+            font-size: 10px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .decision-result {
+            margin-top: 15px;
+            padding: 16px;
+            border: 1px dashed #343e50;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .result-label {
+            color: #697487;
+            font-size: 8px;
+            letter-spacing: 1px;
+        }
+
+        .result-value {
+            margin-top: 8px;
+            color: #c4b5fd;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           ELSE IF
+        ===================================================== */
+
+        .branches {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .branch-card {
+            padding: 21px;
+            border: 1px solid #252e3e;
+            border-radius: 14px;
+            background: #0f141e;
+        }
+
+        .branch-keyword {
+            color: #c084fc;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .branch-card h3 {
+            margin-top: 12px;
+            font-size: 12px;
+        }
+
+        .branch-card p {
+            margin-top: 6px;
+            color: #707b8d;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+
+        /* =====================================================
+           COMPARISON
+        ===================================================== */
+
+        .comparison {
+            margin-top: 24px;
+            overflow: hidden;
+            border: 1px solid #252e3e;
+            border-radius: 15px;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns:
+                1fr 1fr;
+            border-bottom: 1px solid #202838;
+        }
+
+        .comparison-row:last-child {
+            border-bottom: 0;
+        }
+
+        .comparison-row > div {
+            padding: 15px;
+        }
+
+        .comparison-head {
+            color: #687386;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: #111722;
+        }
+
+        .comparison-code {
+            color: #b9c1ce;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 10px;
+            background: #0b1017;
+        }
+
+        .comparison-meaning {
+            color: #7c8798;
+            font-size: 10px;
+            background: #0f141e;
+        }
+
+
+        /* =====================================================
+           OPERATORS
+        ===================================================== */
+
+        .operator-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        .operator-card {
+            padding: 18px;
+            border: 1px solid #252e3e;
+            border-radius: 13px;
+            background: #0f141e;
+        }
+
+        .operator-symbol {
+            color: #fbbf24;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .operator-card strong {
+            display: block;
+            margin-top: 9px;
+            color: #aeb7c5;
+            font-size: 10px;
+        }
+
+        .operator-card p {
+            margin-top: 5px;
+            color: #687386;
+            font-size: 9px;
+        }
+
+
+        /* =====================================================
+           QUIZ
+        ===================================================== */
+
+        .quiz-card {
+            padding: 28px;
+            border: 1px solid #252e3e;
+            border-radius: 18px;
+            background:
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(124,58,237,.08),
+                    transparent 30%
+                ),
+                #0f141e;
+        }
+
+        .quiz-number {
+            color: #8b7ab5;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 9px;
+        }
+
+        .quiz-question {
+            margin-top: 10px;
+            font-size: 19px;
+            font-weight: 700;
+        }
+
+        .quiz-code {
+            margin-top: 15px;
+            padding: 15px;
+            border: 1px solid #222b3a;
+            border-radius: 9px;
+            background: #0a0f16;
+            color: #cbd2dd;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns:
+                repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .quiz-option {
+            min-height: 52px;
+            padding: 0 15px;
+            border: 1px solid #293243;
+            border-radius: 10px;
+            background: #111722;
+            color: #9ba5b5;
+            text-align: left;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .quiz-option:hover {
+            border-color: #465167;
+            background: #151c29;
+        }
+
+        .quiz-option.correct {
+            border-color: rgba(74,222,128,.5);
+            background: rgba(74,222,128,.08);
+            color: #86efac;
+        }
+
+        .quiz-option.wrong {
+            border-color: rgba(248,113,113,.5);
+            background: rgba(248,113,113,.08);
+            color: #fca5a5;
+        }
+
+        .quiz-feedback {
+            display: none;
+            align-items: center;
+            gap: 14px;
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #252e3e;
+            border-radius: 12px;
+            background: #111722;
+        }
+
+        .quiz-feedback.show {
+            display: flex;
+        }
+
+        .feedback-character {
+            width: 50px;
+            height: 50px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            border-radius: 11px;
+            background: #181f2c;
+            color: #c4b5fd;
+            font-size: 21px;
+        }
+
+        .feedback-text strong {
+            display: block;
+            font-size: 12px;
+        }
+
+        .feedback-text span {
+            display: block;
+            margin-top: 3px;
+            color: #6f7a8c;
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           COMPLETION
+        ===================================================== */
+
+        .completion {
+            display: none;
+            padding: 45px 25px;
+            margin-top: 30px;
+            border: 1px solid rgba(139,92,246,.3);
+            border-radius: 18px;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(124,58,237,.13),
+                    transparent 60%
+                );
+            text-align: center;
+        }
+
+        .completion.show {
+            display: block;
+            animation:
+                completionIn
+                .5s
+                ease;
+        }
+
+        @keyframes completionIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        .completion-icon {
+            font-size: 42px;
+        }
+
+        .completion h2 {
+            margin-top: 12px;
+            font-size: 26px;
+        }
+
+        .completion p {
+            margin-top: 7px;
+            color: #747f91;
+            font-size: 12px;
+        }
+
+        .xp-reward {
+            display: inline-flex;
+            margin-top: 18px;
+            padding: 7px 12px;
+            border: 1px solid rgba(139,92,246,.25);
+            border-radius: 999px;
+            background: rgba(139,92,246,.08);
+            color: #c4b5fd;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .next-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 22px;
+            padding: 12px 17px;
+            border-radius: 9px;
+            background: #7c3aed;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+
+        @media (max-width: 950px) {
+
+            .lesson-hero {
+                grid-template-columns: 1fr;
+            }
+
+            .interactive-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .branches,
+            .operator-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .lesson-header {
+                flex-direction: column;
+            }
+
+            .decision-tree {
+                grid-template-columns: 1fr;
+            }
+
+            .tree-arrow {
+                transform: rotate(90deg);
+            }
+
+            .branches,
+            .operator-grid,
+            .quiz-options,
+            .comparison-row {
+                grid-template-columns: 1fr;
+            }
+
+            .lesson-hero {
+                padding: 25px 18px;
+            }
+
+        }
+
+
+        @media (max-width: 480px) {
+
+            .lesson-header h1 {
+                font-size: 36px;
+            }
+
+            .anime-character {
+                width: 175px;
+                height: 230px;
+            }
+
+            .speech {
+                max-width: 180px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+                C
+            </div>
+
+            <div class="brand-text">
+
+                <h1>
+                    Craft<span>C</span>
+                </h1>
+
+                <p>
+                    Learn C visually
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a
+                href="index.html"
+                class="nav-link"
+            >
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a
+                href="lesson1.html"
+                class="nav-link"
+            >
+                <span class="nav-icon">✓</span>
+                <span>Lesson 01</span>
+            </a>
+
+
+            <a
+                href="lesson2.html"
+                class="nav-link"
+            >
+                <span class="nav-icon">✓</span>
+                <span>Lesson 02</span>
+            </a>
+
+
+            <a
+                href="lesson3.html"
+                class="nav-link"
+            >
+                <span class="nav-icon">✓</span>
+                <span>Lesson 03</span>
+            </a>
+
+
+            <a
+                href="lesson4.html"
+                class="nav-link"
+            >
+                <span class="nav-icon">✓</span>
+                <span>Lesson 04</span>
+            </a>
+
+
+            <a
+                href="lesson5.html"
+                class="nav-link"
+            >
+                <span class="nav-icon">✓</span>
+                <span>Lesson 05</span>
+            </a>
+
+
+            <a
+                href="#lesson"
+                class="nav-link active"
+            >
+                <span class="nav-icon">◈</span>
+                <span>Lesson 06</span>
+            </a>
+
+
+            <a
+                href="#quiz"
+                class="nav-link"
+            >
+                <span class="nav-icon">⚡</span>
+                <span>Practice</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="level-card">
+
+                <div class="level-row">
+
+                    <span id="level-name">
+                        Level 1
+                    </span>
+
+                    <strong id="xp-value">
+                        0 XP
+                    </strong>
+
+                </div>
+
+
+                <div class="xp-track">
+
+                    <div
+                        class="xp-fill"
+                        id="xp-fill"
+                    ></div>
+
+                </div>
+
+
+                <p id="xp-next">
+                    200 XP to next level
+                </p>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <div
+            class="lesson-page"
+            id="lesson"
+        >
+
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+
+            <header class="lesson-header">
+
+                <div>
+
+                    <div class="lesson-breadcrumb">
+
+                        <a href="index.html">
+                            Dashboard
+                        </a>
+
+                        <span>/</span>
+
+                        C Fundamentals
+
+                        <span>/</span>
+
+                        Lesson 06
+
+                    </div>
+
+
+                    <h1>
+
+                        Make
+                        <span>Decisions</span>
+
+                    </h1>
+
+
+                    <p class="lesson-subtitle">
+
+                        Programs shouldn't always do the same
+                        thing. Learn how <b>if</b>, <b>else if</b>
+                        and <b>else</b> let your C program choose
+                        what to do.
+
+                    </p>
+
+                </div>
+
+
+                <div class="lesson-number-badge">
+                    LESSON 06
+                </div>
+
+            </header>
+
+
+            <!-- =================================================
+                 PROGRESS
+            ================================================== -->
+
+            <div class="lesson-progress">
+
+                <div class="lesson-progress-top">
+
+                    <span>
+                        Lesson progress
+                    </span>
+
+                    <strong id="progress-text">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="lesson-progress-track">
+
+                    <div
+                        class="lesson-progress-fill"
+                        id="progress-fill"
+                    ></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 HERO
+            ================================================== -->
+
+            <section class="lesson-hero">
+
+                <div class="hero-grid"></div>
+
+
+                <div class="hero-content">
+
+                    <span class="hero-label">
+                        CHAPTER 02 • DECISION MAKING
+                    </span>
+
+
+                    <h2>
+
+                        Give your code
+                        <span>a brain.</span>
+
+                    </h2>
+
+
+                    <p>
+
+                        A program can look at a condition and
+                        decide which instructions should run.
+
+                        That's the foundation of intelligent
+                        program behaviour.
+
+                    </p>
+
+                </div>
+
+
+                <div class="anime-stage">
+
+                    <!--
+                        Replace this placeholder with your anime
+                        character later:
+
+                        
+                    -->
+
+                    <div class="anime-character">
+
+                        <div class="anime-face">
+                           <img
+                            src="anime-explain.png"
+                            class="anime-image"
+                            alt="Anime guide"
+                        >
+                        </div>
+
+                        <div class="anime-label">
+                           MARIN
+                        </div>
+
+                    </div>
+
+
+                    <div class="speech">
+
+                        Hmm...
+
+                        If the condition is true,
+                        I'll take one path.
+
+                        Otherwise, I'll take another. ✦
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 1
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    01 / THE IDEA
+                </span>
+
+
+                <h2 class="section-title">
+                    What is an if statement?
+                </h2>
+
+
+                <p class="section-description">
+
+                    An <code>if</code> statement checks whether
+                    a condition is true. If it is true, C runs
+                    the code inside the block.
+
+                </p>
+
+
+                <div class="decision-card">
+
+                    <div class="decision-question">
+                        THINK LIKE A PROGRAMMER
+                    </div>
+
+
+                    <div class="decision-question-text">
+
+                        "Is the student's score at least 40?"
+
+                    </div>
+
+
+                    <div class="decision-example">
+
+                        <span class="keyword">
+                            if
+                        </span>
+
+                        (
+
+                        <span class="condition">
+                            score &gt;= 40
+                        </span>
+
+                        ) {
+
+                        <br>
+
+                        &nbsp;&nbsp;
+
+                        <span class="keyword">
+                            printf
+                        </span>
+
+                        (
+
+                        <span class="string">
+                            "Pass"
+                        </span>
+
+                        );
+
+                        <br>
+
+                        }
+
+                        <br><br>
+
+                        <span class="comment">
+                            // If score is 40 or more,
+                            // "Pass" is printed.
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 2
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    02 / HOW THE DECISION FLOWS
+                </span>
+
+
+                <h2 class="section-title">
+                    Follow the path
+                </h2>
+
+
+                <p class="section-description">
+
+                    Every <code>if</code> statement follows a
+                    simple pattern: check → decide → execute.
+
+                </p>
+
+
+                <div class="if-flow">
+
+                    <div class="if-flow-title">
+                        The decision tree
+                    </div>
+
+                    <div class="if-flow-subtitle">
+                        What your program does internally
+                    </div>
+
+
+                    <div class="decision-tree">
+
+
+                        <div class="tree-node start">
+
+                            <div class="tree-icon">
+                                📥
+                            </div>
+
+                            <strong>
+                                Get score
+                            </strong>
+
+                            <span>
+                                score = 72
+                            </span>
+
+                        </div>
+
+
+                        <div class="tree-arrow">
+                            →
+                        </div>
+
+
+                        <div class="tree-node end">
+
+                            <div class="tree-icon">
+                                🧠
+                            </div>
+
+                            <strong>
+                                Check condition
+                            </strong>
+
+                            <span>
+                                72 &gt;= 40
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 3 — INTERACTIVE
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    03 / TRY IT
+                </span>
+
+
+                <h2 class="section-title">
+                    You control the decision
+                </h2>
+
+
+                <p class="section-description">
+
+                    Enter a score. The same logic from the code
+                    will decide whether the student passes.
+
+                </p>
+
+
+                <div class="interactive-card">
+
+
+                    <div class="interactive-layout">
+
+
+                        <div class="interactive-code">
+
+                            <span class="blue">
+                                int
+                            </span>
+
+                            score;
+
+                            <br><br>
+
+                            <span class="keyword">
+                                if
+                            </span>
+
+                            (
+
+                            <span class="condition">
+                                score &gt;= 40
+                            </span>
+
+                            ) {
+
+                            <br>
+
+                            &nbsp;&nbsp;
+
+                            <span class="keyword">
+                                printf
+                            </span>
+
+                            (
+
+                            <span class="string">
+                            "PASS"
+                            </span>
+
+                            );
+
+                            <br>
+
+                            }
+
+                            <br>
+
+                            <span class="keyword">
+                                else
+                            </span>
+
+                            {
+
+                            <br>
+
+                            &nbsp;&nbsp;
+
+                            <span class="keyword">
+                                printf
+                            </span>
+
+                            (
+
+                            <span class="string">
+                            "FAIL"
+                            </span>
+
+                            );
+
+                            <br>
+
+                            }
+
+                        </div>
+
+
+                        <div class="interactive-control">
+
+                            <label>
+                                ENTER SCORE
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="score-input"
+                                class="number-input"
+                                placeholder="0 - 100"
+                                min="0"
+                                max="100"
+                            >
+
+
+                            <button
+                                class="run-button"
+                                onclick="checkScore()"
+                            >
+
+                                ▶ Run the program
+
+                            </button>
+
+
+                            <div class="decision-result">
+
+                                <div class="result-label">
+                                    PROGRAM OUTPUT
+                                </div>
+
+                                <div
+                                    class="result-value"
+                                    id="score-result"
+                                >
+                                    waiting...
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 4
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    04 / MORE THAN TWO CHOICES
+                </span>
+
+
+                <h2 class="section-title">
+                    else if enters the game
+                </h2>
+
+
+                <p class="section-description">
+
+                    When you have several possible conditions,
+                    use <code>else if</code>.
+
+                </p>
+
+
+                <div class="branches">
+
+
+                    <div class="branch-card">
+
+                        <div class="branch-keyword">
+                            if
+                        </div>
+
+                        <h3>
+                            First condition
+                        </h3>
+
+                        <p>
+                            Checked first.
+                            If true, its block runs.
+                        </p>
+
+                    </div>
+
+
+                    <div class="branch-card">
+
+                        <div class="branch-keyword">
+                            else if
+                        </div>
+
+                        <h3>
+                            Another condition
+                        </h3>
+
+                        <p>
+                            Checked only when the earlier
+                            condition was false.
+                        </p>
+
+                    </div>
+
+
+                    <div class="branch-card">
+
+                        <div class="branch-keyword">
+                            else
+                        </div>
+
+                        <h3>
+                            Everything else
+                        </h3>
+
+                        <p>
+                            Runs when none of the previous
+                            conditions were true.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="comparison">
+
+
+                    <div class="comparison-row">
+
+                        <div class="comparison-head">
+                            CODE
+                        </div>
+
+                        <div class="comparison-head">
+                            MEANING
+                        </div>
+
+                    </div>
+
+
+                    <div class="comparison-row">
+
+                        <div class="comparison-code">
+                            if (marks &gt;= 90)
+                        </div>
+
+                        <div class="comparison-meaning">
+                            Check the first condition.
+                        </div>
+
+                    </div>
+
+
+                    <div class="comparison-row">
+
+                        <div class="comparison-code">
+                            else if (marks &gt;= 60)
+                        </div>
+
+                        <div class="comparison-meaning">
+                            Check this if the first condition failed.
+                        </div>
+
+                    </div>
+
+
+                    <div class="comparison-row">
+
+                        <div class="comparison-code">
+                            else
+                        </div>
+
+                        <div class="comparison-meaning">
+                            Run when all previous conditions failed.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 5
+            ================================================== -->
+
+            <section class="lesson-section">
+
+                <span class="section-number">
+                    05 / COMPARISON OPERATORS
+                </span>
+
+
+                <h2 class="section-title">
+                    How do we compare values?
+                </h2>
+
+
+                <p class="section-description">
+
+                    Conditions use comparison operators to
+                    produce either true or false.
+
+                </p>
+
+
+                <div class="operator-grid">
+
+
+                    <div class="operator-card">
+
+                        <div class="operator-symbol">
+                            ==
+                        </div>
+
+                        <strong>
+                            Equal to
+                        </strong>
+
+                        <p>
+                            x == 10
+                        </p>
+
+                    </div>
+
+
+                    <div class="operator-card">
+
+                        <div class="operator-symbol">
+                            !=
+                        </div>
+
+                        <strong>
+                            Not equal
+                        </strong>
+
+                        <p>
+                            x != 10
+                        </p>
+
+                    </div>
+
+
+                    <div class="operator-card">
+
+                        <div class="operator-symbol">
+                            &gt;
+                        </div>
+
+                        <strong>
+                            Greater than
+                        </strong>
+
+                        <p>
+                            x &gt; 10
+                        </p>
+
+                    </div>
+
+
+                    <div class="operator-card">
+
+                        <div class="operator-symbol">
+                            &lt;
+                        </div>
+
+                        <strong>
+                            Less than
+                        </strong>
+
+                        <p>
+                            x &lt; 10
+                        </p>
+
+                    </div>
+
+
+                    <div class="operator-card">
+
+                        <div class="operator-symbol">
+                            &gt;=
+                        </div>
+
+                        <strong>
+                            Greater or equal
+                        </strong>
+
+                        <p>
+                            x &gt;= 10
+                        </p>
+
+                    </div>
+
+
+                    <div class="operator-card">
+
+                        <div class="operator-symbol">
+                            &lt;=
+                        </div>
+
+                        <strong>
+                            Less or equal
+                        </strong>
+
+                        <p>
+                            x &lt;= 10
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 SECTION 6 — QUIZ
+            ================================================== -->
+
+            <section
+                class="lesson-section"
+                id="quiz"
+            >
+
+                <span class="section-number">
+                    06 / CHECKPOINT
+                </span>
+
+
+                <h2 class="section-title">
+                    Final check
+                </h2>
+
+
+                <p class="section-description">
+
+                    Read the code carefully before choosing.
+
+                </p>
+
+
+                <div class="quiz-card">
+
+
+                    <span class="quiz-number">
+                        QUESTION 01
+                    </span>
+
+
+                    <div class="quiz-question">
+
+                        What will this program print?
+
+                    </div>
+
+
+                    <div class="quiz-code">
+
+                        <span class="blue">
+                            int
+                        </span>
+
+                        age = 18;
+
+                        <br><br>
+
+                        <span class="keyword">
+                            if
+                        </span>
+
+                        (age &gt;= 18) {
+
+                        <br>
+
+                        &nbsp;&nbsp;
+
+                        <span class="keyword">
+                            printf
+                        </span>
+
+                        (<span class="string">
+                        "Adult"
+                        </span>);
+
+                        <br>
+
+                        }
+
+                        <br>
+
+                        <span class="keyword">
+                            else
+                        </span>
+
+                        {
+
+                        <br>
+
+                        &nbsp;&nbsp;
+
+                        <span class="keyword">
+                            printf
+                        </span>
+
+                        (<span class="string">
+                        "Minor"
+                        </span>);
+
+                        <br>
+
+                        }
+
+                    </div>
+
+
+                    <div class="quiz-options">
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, true)"
+                        >
+
+                            A. Adult
+
+                        </button>
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, false)"
+                        >
+
+                            B. Minor
+
+                        </button>
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, false)"
+                        >
+
+                            C. Adult Minor
+
+                        </button>
+
+
+                        <button
+                            class="quiz-option"
+                            onclick="answerQuiz(this, false)"
+                        >
+
+                            D. Nothing
+
+                        </button>
+
+
+                    </div>
+
+
+                    <div
+                        class="quiz-feedback"
+                        id="quiz-feedback"
+                    >
+
+                        <div
+                            class="feedback-character"
+                            id="feedback-character"
+                        >
+                            ✦
+                        </div>
+
+
+                        <div class="feedback-text">
+
+                            <strong
+                                id="feedback-title"
+                            >
+                                Correct!
+                            </strong>
+
+                            <span
+                                id="feedback-message"
+                            >
+                                age is 18, so age >= 18 is true.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     COMPLETION
+                ================================================== -->
+
+                <div
+                    class="completion"
+                    id="completion"
+                >
+
+                    <div class="completion-icon">
+                       <img
+                            src="anime-celebrate.png"
+                            class="anime-image"
+                            alt="Anime guide"
+                        > 
+                    </div>
+
+
+                    <h2>
+                        Lesson 6 Complete!
+                    </h2>
+
+
+                    <p>
+
+                        You can now make C programs choose
+                        different paths using if, else if
+                        and else.
+
+                    </p>
+
+
+                    <div class="xp-reward">
+                        +50 XP
+                    </div>
+
+
+                    <br>
+
+
+                    <a
+                        href="lesson7.html"
+                        class="next-button"
+                    >
+
+                        Continue to Lesson 7
+                        →
+
+                    </a>
+
+                </div>
+
+            </section>
+
+
+        </div>
+
+
+        <!-- =====================================================
+             FOOTER
+        ====================================================== -->
+
+        <footer class="footer">
+
+            <div>
+
+                <strong>
+                    DEVELOPED<span>  By USR-KSHITIJ</span>
+                </strong>
+
+                <span>
+                    — Learn C visually.
+                </span>
+
+            </div>
+
+
+            <div>
+                Lesson 06
+            </div>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+<script>
+
+
+    /* =====================================================
+       LESSON SETTINGS
+    ===================================================== */
+
+    const LESSON_ID =
+        "lesson6";
+
+    const LESSON_XP =
+        50;
+
+
+    /* =====================================================
+       XP
+    ===================================================== */
+
+    let xp =
+        Number(
+            localStorage.getItem(
+                "craftc_xp"
+            )
+        ) || 0;
+
+
+    let completedLessons =
+        JSON.parse(
+            localStorage.getItem(
+                "craftc_completed"
+            )
+        ) || [];
+
+
+    function updateXP() {
+
+        const level =
+            Math.floor(
+                xp / 200
+            ) + 1;
+
+
+        const currentXP =
+            xp % 200;
+
+
+        const percentage =
+            Math.min(
+                (currentXP / 200) * 100,
+                100
+            );
+
+
+        document.getElementById(
+            "level-name"
+        ).textContent =
+            "Level " + level;
+
+
+        document.getElementById(
+            "xp-value"
+        ).textContent =
+            xp + " XP";
+
+
+        document.getElementById(
+            "xp-fill"
+        ).style.width =
+            percentage + "%";
+
+
+        document.getElementById(
+            "xp-next"
+        ).textContent =
+            (200 - currentXP) +
+            " XP to next level";
+
+    }
+
+
+    /* =====================================================
+       PROGRESS
+    ===================================================== */
+
+    let lessonProgress = 0;
+
+
+    function updateProgress(value) {
+
+        lessonProgress =
+            Math.max(
+                lessonProgress,
+                value
+            );
+
+
+        document.getElementById(
+            "progress-fill"
+        ).style.width =
+            lessonProgress + "%";
+
+
+        document.getElementById(
+            "progress-text"
+        ).textContent =
+            lessonProgress + "%";
+
+    }
+
+
+    /* =====================================================
+       INTERACTIVE IF / ELSE
+    ===================================================== */
+
+    function checkScore() {
+
+        const input =
+            document.getElementById(
+                "score-input"
+            );
+
+
+        const result =
+            document.getElementById(
+                "score-result"
+            );
+
+
+        const value =
+            Number(
+                input.value
+            );
+
+
+        if (
+            input.value === ""
+        ) {
+
+            result.textContent =
+                "enter a score";
+
+            return;
+
+        }
+
+
+        if (
+            value < 0 ||
+            value > 100
+        ) {
+
+            result.textContent =
+                "invalid score";
+
+            return;
+
+        }
+
+
+        if (
+            value >= 40
+        ) {
+
+            result.textContent =
+                "PASS";
+
+
+            result.style.color =
+                "#86efac";
+
+        } else {
+
+            result.textContent =
+                "FAIL";
+
+
+            result.style.color =
+                "#fca5a5";
+
+        }
+
+
+        updateProgress(45);
+
+    }
+
+
+    /* =====================================================
+       QUIZ
+    ===================================================== */
+
+    let quizAnswered =
+        false;
+
+
+    function answerQuiz(
+        button,
+        correct
+    ) {
+
+        if (
+            quizAnswered
+        ) {
+            return;
+        }
+
+
+        const feedback =
+            document.getElementById(
+                "quiz-feedback"
+            );
+
+
+        if (correct) {
+
+            quizAnswered =
+                true;
+
+
+            button.classList.add(
+                "correct"
+            );
+
+
+            document
+                .querySelectorAll(
+                    ".quiz-option"
+                )
+                .forEach(
+                    option =>
+                        option.disabled =
+                            true
+                );
+
+
+            document.getElementById(
+                "feedback-character"
+            ).textContent =
+                "✦";
+
+
+            document.getElementById(
+                "feedback-title"
+            ).textContent =
+                "Correct! 🔥";
+
+
+            document.getElementById(
+                "feedback-message"
+            ).textContent =
+                "18 >= 18 is true, so the if block runs and prints Adult.";
+
+
+            feedback.classList.add(
+                "show"
+            );
+
+
+            updateProgress(100);
+
+
+            completeLesson();
+
+        } else {
+
+            button.classList.add(
+                "wrong"
+            );
+
+
+            document.getElementById(
+                "feedback-character"
+            ).textContent =
+                "↻";
+
+
+            document.getElementById(
+                "feedback-title"
+            ).textContent =
+                "Not quite.";
+
+
+            document.getElementById(
+                "feedback-message"
+            ).textContent =
+                "Check the condition: is 18 greater than or equal to 18?";
+
+
+            feedback.classList.add(
+                "show"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    button.classList.remove(
+                        "wrong"
+                    );
+
+                },
+                900
+            );
+
+        }
+
+    }
+
+
+    /* =====================================================
+       COMPLETE LESSON
+    ===================================================== */
+
+    function completeLesson() {
+
+        if (
+            !completedLessons.includes(
+                LESSON_ID
+            )
+        ) {
+
+            completedLessons.push(
+                LESSON_ID
+            );
+
+
+            xp += LESSON_XP;
+
+
+            localStorage.setItem(
+                "craftc_xp",
+                xp
+            );
+
+
+            localStorage.setItem(
+                "craftc_completed",
+                JSON.stringify(
+                    completedLessons
+                )
+            );
+
+        }
+
+
+        updateXP();
+
+
+        document.getElementById(
+            "completion"
+        ).classList.add(
+            "show"
+        );
+
+
+        setTimeout(
+            () => {
+
+                document
+                    .getElementById(
+                        "completion"
+                    )
+                    .scrollIntoView({
+                        behavior:
+                            "smooth",
+                        block:
+                            "center"
+                    });
+
+            },
+            100
+        );
+
+    }
+
+
+    /* =====================================================
+       INITIALIZE
+    ===================================================== */
+
+    updateXP();
+
+
+    if (
+        completedLessons.includes(
+            LESSON_ID
+        )
+    ) {
+
+        updateProgress(100);
+
+
+        document.getElementById(
+            "completion"
+        ).classList.add(
+            "show"
+        );
+
+    }
+
+</script>
+
+
+</body>
+
+</html>
+

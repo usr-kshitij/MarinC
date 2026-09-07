@@ -1,0 +1,1289 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CraftC — Learn C Visually</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =========================================================
+     APP
+========================================================= -->
+
+<div class="app">
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+
+            <div class="brand-text">
+                <h1>MARIN<span> C</span></h1>
+                <p>Learn C visually</p>
+            </div>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <a href="index.html" class="nav-link active">
+                <span class="nav-icon">⌂</span>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#course" class="nav-link">
+                <span class="nav-icon">◈</span>
+                <span>Learn C</span>
+            </a>
+
+            <a href="#practice" class="nav-link">
+                <span class="nav-icon">⚡</span>
+                <span>Practice</span>
+            </a>
+
+            <a href="#progress" class="nav-link">
+                <span class="nav-icon">◉</span>
+                <span>Progress</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="level-card">
+
+                <div class="level-row">
+
+                    <span id="level-name">
+                        Level 1
+                    </span>
+
+                    <strong id="xp-value">
+                        0 XP
+                    </strong>
+
+                </div>
+
+                <div class="xp-track">
+                    <div
+                        class="xp-fill"
+                        id="xp-fill"
+                    ></div>
+                </div>
+
+                <p id="xp-next">
+                    200 XP to next level
+                </p>
+
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =================================================
+             TOPBAR
+        ================================================== -->
+
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <p class="eyebrow">
+                     C PROGRAMMING
+                </p>
+
+                <h2>
+                    Welcome to MARIN<span>C</span>.
+                </h2>
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div class="streak">
+
+                    <div class="streak-icon">
+                        🔥
+                    </div>
+
+                    <div>
+                        <strong id="streak-value">
+                            0 day streak
+                        </strong>
+
+                        <small>
+                            Keep learning
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="profile">
+
+                    <div class="profile-avatar">
+                        C
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section class="hero-section">
+
+            <div class="hero-text">
+
+                <span class="hero-tag">
+                    INTERACTIVE C LEARNING
+                </span>
+
+                <h1>
+                    Don't just read code.
+                    <br>
+                    <span>Watch it happen.</span>
+                </h1>
+
+                <p>
+                    Learn C programming through visual explanations,
+                    animations, interactive examples, quizzes and
+                    anime-style learning experiences.
+                </p>
+
+
+                <div class="hero-buttons">
+
+                    <a
+                        href="lesson1.html"
+                        class="primary-button"
+                    >
+                        Start Learning
+                        <span>→</span>
+                    </a>
+
+                    <a
+                        href="#course"
+                        class="secondary-button"
+                    >
+                        View Course
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- HERO VISUAL -->
+
+            <div class="hero-visual">
+
+                <div class="floating-code code-one">
+                    <span class="code-keyword">int</span>
+                    <span class="code-variable">age</span>
+                    =
+                    <span class="code-number">18</span>;
+                </div>
+
+
+                <div class="floating-code code-two">
+                    <span class="code-keyword">if</span>
+                    (age &gt;= 18)
+                </div>
+
+
+                <div class="hero-memory">
+
+                    <div class="memory-label">
+                        MEMORY
+                    </div>
+
+                    <div class="memory-address">
+                        0x7FFE
+                    </div>
+
+                    <div class="memory-variable">
+                        age
+                    </div>
+
+                    <div class="memory-value">
+                        18
+                    </div>
+
+                </div>
+
+
+                <!-- Replace this later with your anime character -->
+
+                <div class="anime-placeholder">
+
+                    <div class="anime-placeholder-face">
+                        ◕‿◕
+                    </div>
+
+                    <span>
+                        YOUR ANIME GUIDE
+                    </span>
+
+                </div>
+
+
+                <div class="speech-bubble">
+
+                    <span>
+                        Let's understand
+                        what the code is doing!
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             COURSE
+        ================================================== -->
+
+        <section
+            class="course-section"
+            id="course"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-label">
+                        LEARNING PATH
+                    </span>
+
+                    <h2>
+                        C Fundamentals
+                    </h2>
+
+                    <p>
+                        Build your C foundation step by step.
+                    </p>
+
+                </div>
+
+
+                <div class="course-progress">
+
+                    <strong id="completed-count">
+                        0
+                    </strong>
+
+                    <span>
+                        / 12 lessons
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- COURSE GRID -->
+
+            <div class="lesson-grid">
+
+
+                <!-- =========================================
+                     LESSON 1
+                ========================================== -->
+
+                <article class="lesson-card">
+
+                    <div class="lesson-top">
+
+                        <span class="lesson-number">
+                            01
+                        </span>
+
+                        <span class="lesson-status completed">
+                            FOUNDATION
+                        </span>
+
+                    </div>
+
+                    <div class="lesson-icon">
+                        &lt;/&gt;
+                    </div>
+
+                    <h3>
+                        Introduction to C
+                    </h3>
+
+                    <p>
+                        What is C, where it came from,
+                        and why programmers still use it.
+                    </p>
+
+                    <div class="lesson-bottom">
+
+                        <span>
+                            ~8 min
+                        </span>
+
+                        <a href="lesson1.html">
+                            Start →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =========================================
+                     LESSON 2
+                ========================================== -->
+
+                <article class="lesson-card">
+
+                    <div class="lesson-top">
+
+                        <span class="lesson-number">
+                            02
+                        </span>
+
+                        <span class="lesson-status">
+                            BASIC
+                        </span>
+
+                    </div>
+
+                    <div class="lesson-icon">
+                        C
+                    </div>
+
+                    <h3>
+                        Your First C Program
+                    </h3>
+
+                    <p>
+                        Understand main(), printf(),
+                        headers and the basic structure of C.
+                    </p>
+
+                    <div class="lesson-bottom">
+
+                        <span>
+                            ~10 min
+                        </span>
+
+                        <a href="lesson2.html">
+                            Start →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =========================================
+                     LESSON 3
+                ========================================== -->
+
+                <article class="lesson-card">
+
+                    <div class="lesson-top">
+
+                        <span class="lesson-number">
+                            03
+                        </span>
+
+                        <span class="lesson-status">
+                            BASIC
+                        </span>
+
+                    </div>
+
+                    <div class="lesson-icon">
+                        01
+                    </div>
+
+                    <h3>
+                        Variables
+                    </h3>
+
+                    <p>
+                        Visualize how variables store values
+                        inside computer memory.
+                    </p>
+
+                    <div class="lesson-bottom">
+
+                        <span>
+                            ~12 min
+                        </span>
+
+                        <a href="lesson3.html">
+                            Start →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =========================================
+                     LESSON 4
+                ========================================== -->
+
+                <article class="lesson-card">
+
+                    <div class="lesson-top">
+
+                        <span class="lesson-number">
+                            04
+                        </span>
+
+                        <span class="lesson-status">
+                            BASIC
+                        </span>
+
+                    </div>
+
+                    <div class="lesson-icon">
+                        #
+                    </div>
+
+                    <h3>
+                        Data Types
+                    </h3>
+
+                    <p>
+                        Understand int, float, char and
+                        how C represents different data.
+                    </p>
+
+                    <div class="lesson-bottom">
+
+                        <span>
+                            ~12 min
+                        </span>
+
+                        <a href="lesson4.html">
+                            Start →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =========================================
+                     LESSON 5
+                ========================================== -->
+
+                <article class="lesson-card">
+
+                    <div class="lesson-top">
+
+                        <span class="lesson-number">
+                            05
+                        </span>
+
+                        <span class="lesson-status">
+                            BASIC
+                        </span>
+
+                    </div>
+
+                    <div class="lesson-icon">
+                        ↔
+                    </div>
+
+                    <h3>
+                        Input & Output
+                    </h3>
+
+                    <p>
+                        Learn printf(), scanf() and how
+                        programs communicate with users.
+                    </p>
+
+                    <div class="lesson-bottom">
+
+                        <span>
+                            ~12 min
+                        </span>
+
+                        <a href="lesson5.html">
+                            Start →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =========================================
+                     LESSON 6
+                ========================================== -->
+
+                <article class="lesson-card">
+
+                    <div class="lesson-top">
+
+                        <span class="lesson-number">
+                            06
+                        </span>
+
+                        <span class="lesson-status">
+                            CORE
+                        </span>
+
+                    </div>
+
+                    <div class="lesson-icon">
+                        +−
+                    </div>
+
+                    <h3>
+                        Operators
+                    </h3>
+
+                    <p>
+                        Arithmetic, relational, logical and
+                        assignment operators explained visually.
+                    </p>
+
+                    <div class="lesson-bottom">
+
+                        <span>
+                            ~15 min
+                        </span>
+
+                        <a href="lesson6.html">
+                            Start →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =========================================
+                     LESSON 7
+                ========================================== -->
+
+                <article class="lesson-card">
+
+                    <div class="lesson-top">
+
+                        <span class="lesson-number">
+                            07
+                        </span>
+
+                        <span class="lesson-status">
+                            CORE
+                        </span>
+
+                    </div>
+
+                    <div class="lesson-icon">
+                        ?
+                    </div>
+
+                    <h3>
+                        Conditions
+                    </h3>
+
+                    <p>
+                        Make decisions using if, else,
+                        else-if and comparison operators.
+                    </p>
+
+                    <div class="lesson-bottom">
+
+                        <span>
+                            ~15 min
+                        </span>
+
+                        <a href="lesson7.html">
+                            Start →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =========================================
+                     LESSON 8
+                ========================================== -->
+
+                <article class="lesson-card">
+
+                    <div class="lesson-top">
+
+                        <span class="lesson-number">
+                            08
+                        </span>
+
+                        <span class="lesson-status">
+                            CORE
+                        </span>
+
+                    </div>
+
+                    <div class="lesson-icon">
+                        ↻
+                    </div>
+
+                    <h3>
+                        Loops
+                    </h3>
+
+                    <p>
+                        Master for, while and do-while loops
+                        through animated execution.
+                    </p>
+
+                    <div class="lesson-bottom">
+
+                        <span>
+                            ~18 min
+                        </span>
+
+                        <a href="lesson8.html">
+                            Start →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =========================================
+                     LESSON 9
+                ========================================== -->
+
+                <article class="lesson-card">
+
+                    <div class="lesson-top">
+
+                        <span class="lesson-number">
+                            09
+                        </span>
+
+                        <span class="lesson-status">
+                            CORE
+                        </span>
+
+                    </div>
+
+                    <div class="lesson-icon">
+                        [ ]
+                    </div>
+
+                    <h3>
+                        Arrays
+                    </h3>
+
+                    <p>
+                        Understand collections of values and
+                        how arrays occupy memory.
+                    </p>
+
+                    <div class="lesson-bottom">
+
+                        <span>
+                            ~18 min
+                        </span>
+
+                        <a href="lesson9.html">
+                            Start →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =========================================
+                     LESSON 10
+                ========================================== -->
+
+                <article class="lesson-card">
+
+                    <div class="lesson-top">
+
+                        <span class="lesson-number">
+                            10
+                        </span>
+
+                        <span class="lesson-status">
+                            ADVANCED
+                        </span>
+
+                    </div>
+
+                    <div class="lesson-icon">
+                        ƒ
+                    </div>
+
+                    <h3>
+                        Functions
+                    </h3>
+
+                    <p>
+                        Break programs into reusable blocks
+                        and understand function calls.
+                    </p>
+
+                    <div class="lesson-bottom">
+
+                        <span>
+                            ~20 min
+                        </span>
+
+                        <a href="lesson10.html">
+                            Start →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =========================================
+                     LESSON 11
+                ========================================== -->
+
+                <article class="lesson-card">
+
+                    <div class="lesson-top">
+
+                        <span class="lesson-number">
+                            11
+                        </span>
+
+                        <span class="lesson-status">
+                            ADVANCED
+                        </span>
+
+                    </div>
+
+                    <div class="lesson-icon">
+                        &*
+                    </div>
+
+                    <h3>
+                        Pointers
+                    </h3>
+
+                    <p>
+                        Finally make pointers visual instead
+                        of treating them like scary symbols.
+                    </p>
+
+                    <div class="lesson-bottom">
+
+                        <span>
+                            ~25 min
+                        </span>
+
+                        <a href="lesson11.html">
+                            Start →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+                <!-- =========================================
+                     LESSON 12
+                ========================================== -->
+
+                <article class="lesson-card">
+
+                    <div class="lesson-top">
+
+                        <span class="lesson-number">
+                            12
+                        </span>
+
+                        <span class="lesson-status">
+                            ADVANCED
+                        </span>
+
+                    </div>
+
+                    <div class="lesson-icon">
+                        {}
+                    </div>
+
+                    <h3>
+                        Structures
+                    </h3>
+
+                    <p>
+                        Group related information using
+                        structures and custom data types.
+                    </p>
+
+                    <div class="lesson-bottom">
+
+                        <span>
+                            ~20 min
+                        </span>
+
+                        <a href="lesson12.html">
+                            Start →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PRACTICE
+        ================================================== -->
+
+        <section
+            class="practice-section"
+            id="practice"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-label">
+                        PRACTICE
+                    </span>
+
+                    <h2>
+                        Test your C skills
+                    </h2>
+
+                    <p>
+                        Don't just watch. Try solving problems.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="practice-grid">
+
+                <div class="practice-card">
+
+                    <div class="practice-icon">
+                        ⚡
+                    </div>
+
+                    <h3>
+                        Quick Quiz
+                    </h3>
+
+                    <p>
+                        Random C questions to test your understanding.
+                    </p>
+
+                    <button
+                        onclick="startQuiz()"
+                        class="practice-button"
+                    >
+                        Start Quiz →
+                    </button>
+
+                </div>
+
+
+                <div class="practice-card">
+
+                    <div class="practice-icon">
+                        🧠
+                    </div>
+
+                    <h3>
+                        Predict the Output
+                    </h3>
+
+                    <p>
+                        Look at the code and predict what happens.
+                    </p>
+
+                    <button
+                        onclick="comingSoon()"
+                        class="practice-button"
+                    >
+                        Practice →
+                    </button>
+
+                </div>
+
+
+                <div class="practice-card">
+
+                    <div class="practice-icon">
+                        💻
+                    </div>
+
+                    <h3>
+                        Coding Challenges
+                    </h3>
+
+                    <p>
+                        Solve small C programming problems.
+                    </p>
+
+                    <button
+                        onclick="comingSoon()"
+                        class="practice-button"
+                    >
+                        Coming Soon
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             PROGRESS
+        ================================================== -->
+
+        <section
+            class="progress-section"
+            id="progress"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-label">
+                        YOUR PROGRESS
+                    </span>
+
+                    <h2>
+                        Keep building.
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="progress-panel">
+
+                <div class="progress-stat">
+
+                    <span class="progress-stat-number"
+                          id="progress-lessons">
+                        0
+                    </span>
+
+                    <span>
+                        Lessons completed
+                    </span>
+
+                </div>
+
+
+                <div class="progress-divider"></div>
+
+
+                <div class="progress-stat">
+
+                    <span class="progress-stat-number"
+                          id="progress-xp">
+                        0
+                    </span>
+
+                    <span>
+                        XP earned
+                    </span>
+
+                </div>
+
+
+                <div class="progress-divider"></div>
+
+
+                <div class="progress-stat">
+
+                    <span class="progress-stat-number"
+                          id="progress-level">
+                        1
+                    </span>
+
+                    <span>
+                        Current level
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             FOOTER
+        ================================================== -->
+
+        <footer class="footer">
+
+            <div>
+              <strong>
+                    DEVELOPED<span>  BY KUROCYPHER </span>
+                </strong>
+
+                <span> — Learn C visually.</span>
+            </div>
+
+            <div>
+                Built for first-year programmers.
+            </div>
+
+        </footer>
+
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     SIMPLE DASHBOARD JAVASCRIPT
+========================================================= -->
+
+<script>
+
+    /*
+        ======================================================
+        CRAFTC DASHBOARD DATA
+        ======================================================
+
+        We intentionally keep this simple.
+
+        Each individual lesson will have its own HTML file
+        and its own animation system.
+
+        This page only handles:
+        - XP
+        - completed lessons
+        - level
+        - dashboard progress
+    */
+
+
+    const TOTAL_LESSONS = 12;
+
+
+    /* -------------------------------------------------------
+       LOAD SAVED DATA
+    ------------------------------------------------------- */
+
+    let xp = Number(
+        localStorage.getItem("craftc_xp")
+    ) || 0;
+
+
+    let completedLessons = JSON.parse(
+        localStorage.getItem("craftc_completed")
+    ) || [];
+
+
+    /* -------------------------------------------------------
+       CALCULATE LEVEL
+    ------------------------------------------------------- */
+
+    function calculateLevel() {
+
+        return Math.floor(xp / 200) + 1;
+
+    }
+
+
+    /* -------------------------------------------------------
+       UPDATE DASHBOARD
+    ------------------------------------------------------- */
+
+    function updateDashboard() {
+
+        const level =
+            calculateLevel();
+
+
+        const levelXP =
+            xp % 200;
+
+
+        const percentage =
+            Math.min(
+                (levelXP / 200) * 100,
+                100
+            );
+
+
+        /*
+            XP
+        */
+
+        document.getElementById(
+            "xp-value"
+        ).textContent =
+            xp + " XP";
+
+
+        /*
+            Level
+        */
+
+        document.getElementById(
+            "level-name"
+        ).textContent =
+            "Level " + level;
+
+
+        /*
+            XP bar
+        */
+
+        document.getElementById(
+            "xp-fill"
+        ).style.width =
+            percentage + "%";
+
+
+        /*
+            XP remaining
+        */
+
+        document.getElementById(
+            "xp-next"
+        ).textContent =
+            (200 - levelXP) +
+            " XP to next level";
+
+
+        /*
+            Completed lessons
+        */
+
+        document.getElementById(
+            "completed-count"
+        ).textContent =
+            completedLessons.length;
+
+
+        document.getElementById(
+            "progress-lessons"
+        ).textContent =
+            completedLessons.length;
+
+
+        /*
+            Progress XP
+        */
+
+        document.getElementById(
+            "progress-xp"
+        ).textContent =
+            xp;
+
+
+        /*
+            Progress level
+        */
+
+        document.getElementById(
+            "progress-level"
+        ).textContent =
+            level;
+
+    }
+
+
+    /* -------------------------------------------------------
+       QUIZ
+    ------------------------------------------------------- */
+
+    function startQuiz() {
+
+        alert(
+            "Quick Quiz will be added next."
+        );
+
+    }
+
+
+    /* -------------------------------------------------------
+       COMING SOON
+    ------------------------------------------------------- */
+
+    function comingSoon() {
+
+        alert(
+            "This feature is coming soon."
+        );
+
+    }
+
+
+    /* -------------------------------------------------------
+       INITIALIZE
+    ------------------------------------------------------- */
+
+    updateDashboard();
+
+</script>
+
+</body>
+</html>
